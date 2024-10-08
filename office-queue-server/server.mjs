@@ -8,6 +8,10 @@ const app = express();
 app.use(morgan("dev"));
 app.use(express.json());
 
+//--- DAOs
+import TicketDao from "./dao/dao-ticket.mjs";
+const ticketDao = new TicketDao();
+
 //--- CORS
 const corsOptions = {
   origin: "http://localhost:5173",
