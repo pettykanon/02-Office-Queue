@@ -1,3 +1,4 @@
+/*------ General--------*/
 .bg-d {
     background-color: #444554;
     align-content: center;
@@ -7,4 +8,110 @@
 }
 .bg-r {
     background-color: #EC7171;
+}
+
+.custom-navbar {
+    height: 100px; 
+    border-bottom-left-radius: 50px;
+    border-bottom-right-radius: 50px;
+    display: flex;
+    justify-content: center; 
+    align-items: center;
+}
+
+/*------ Get ticket--------*/
+
+.custom-service-btn{
+    padding: 15px 60px;
+    font-size: 2rem;
+}
+
+.navbar-text-custom {
+    color: #EDEDED !important;
+    font-weight: bold; 
+    font-size: 2.5rem; 
+    margin: auto; 
+    text-align: center; 
+}
+
+.service-container {
+    display: flex;
+    overflow-x: auto; 
+    white-space: nowrap; 
+    padding: 50px 50px ;
+}
+
+.service-card {
+    flex: 0 0 33.33%;
+    max-width: 30%;
+    padding: 10px;
+    box-sizing: border-box;
+}
+
+.service-button {
+    width: 95%;
+    height: 400px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 10% !important;
+    background-color: #444554 !important;
+    border: none !important;
+}
+
+.custom-btn-canc{
+    width: 80%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 15% !important;
+    background-color: #D9D9D9 !important;
+    border: none !important;
+}
+
+.custom-btn-confirm{
+    width: 80%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 15% !important;
+    background-color: #EC7171 !important;
+    border: none !important;
+}
+
+.btn-font-1{
+    font-size: 3.5rem !important;
+    font-weight:normal;
+    color: #EC7171 !important; 
+}
+
+.btn-font-2{
+    font-size: 1rem !important;
+    font-weight:normal;
+    color: #EDEDED !important; 
+}
+
+.btn-font-3{
+    font-size: 1rem !important;
+    font-weight:normal;
+    color: #282828 !important; 
+}
+
+.btn-font-4{
+    font-size: 25px !important;
+    font-weight:lighter !important;
+    color: #EDEDED !important; 
+}
+
+.service-container::-webkit-scrollbar {
+    border-radius:15px;
+    background-color: #B7B8CA;
+    height: 25px; 
+}
+
+.service-container::-webkit-scrollbar-thumb {
+    background-color: #444554; 
+    border-radius: 15px;
 }
