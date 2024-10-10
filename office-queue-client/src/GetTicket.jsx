@@ -42,7 +42,7 @@ function ChooseService() {
                 </div>
             </Container>
 
-            <Modal show={showModal} onHide={handleClose} centered>
+            <Modal show={showModal} onHide={handleClose} centered dialogClassName="custom-modal">
                 <Modal.Body className='btn-font-1 text-center py-5 bg-d'>
                     <Modal.Title className='btn-font-4'>You chose:</Modal.Title>
                     <p>{selectedService}</p>
