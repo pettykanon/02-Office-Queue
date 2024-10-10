@@ -1,7 +1,8 @@
 import { Button, Container} from 'react-bootstrap';
-import { Navbar, Row,Col,Modal} from 'react-bootstrap';
+import { Navbar, Row,Col,Modal,Card} from 'react-bootstrap';
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
+import QRcode from 'react-qr-code'
 
 function ChooseService() {
     const services = ["servizio 1", "servizio 2", "servizio 3", "servizio 4"];
@@ -89,6 +90,11 @@ function YourTicket() {
         </Container>
     </Navbar>
 
+    <Card>
+        <Card.Body className='custom-ticket'>
+            <QRcode value='hey'></QRcode>
+        </Card.Body>
+    </Card>
     
     </>
     )
