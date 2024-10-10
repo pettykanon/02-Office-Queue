@@ -90,10 +90,21 @@ function YourTicket() {
         </Container>
     </Navbar>
 
-    <Card>
-        <Card.Body className='custom-ticket'>
-            <QRcode value='hey'></QRcode>
-        </Card.Body>
+    <Card className='bg-transparent border-0'>
+        <Card.Body className='custom-ticket my-3'>
+            <Row>
+                <Col className='p-2 m-3 bg-white rounded'>
+                <QRcode value='hey' className='m-3'></QRcode>
+                </Col>
+            </Row>
+            <Row className='w-100 my-2'>
+
+                <Link to='/getticket'><Button className='btn-font-2 custom-btn-confirm w-100 py-3'>
+                    Done
+                </Button></Link>
+           
+            </Row>
+    </Card.Body>
     </Card>
     
     </>
