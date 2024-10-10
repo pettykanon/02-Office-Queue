@@ -9,7 +9,7 @@ app.use(morgan("dev"));
 app.use(express.json());
 
 //--- DAOs
-import TicketDao from "./dao/dao-ticket.mjs";
+import TicketDao from "./dao/ticketDao.js";
 const ticketDao = new TicketDao();
 
 //--- CORS
