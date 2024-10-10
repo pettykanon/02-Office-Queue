@@ -123,3 +123,8 @@
 .mod-transp{
     background-color: transparent !important;
 }
+
+.custom-modal .modal-content {
+    border-radius: 25px;
+    overflow: hidden;
+}
