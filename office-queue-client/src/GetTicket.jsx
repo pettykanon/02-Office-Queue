@@ -5,6 +5,7 @@ import { Link } from 'react-router-dom';
 import QRcode from 'react-qr-code'
 
 function ChooseService() {
+    //get all services
     const services = ["servizio 1", "servizio 2", "servizio 3", "servizio 4"];
 
     const [selectedService, setSelectedService] = useState(); 
@@ -80,6 +81,9 @@ function ServiceCard(props) {
 }
 
 function YourTicket() {
+    //get and record ticket value
+    const value = 'code' 
+
     return(
         <>
     <Navbar className='bg-d custom-navbar'>
@@ -94,7 +98,7 @@ function YourTicket() {
         <Card.Body className='custom-ticket my-3'>
             <Row>
                 <Col className='p-2 m-3 bg-white rounded'>
-                <QRcode value='hey' className='m-3'></QRcode>
+                <QRcode value={value} className='m-3'></QRcode>
                 </Col>
             </Row>
             <Row className='w-100 my-2'>

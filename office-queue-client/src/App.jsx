@@ -1,7 +1,6 @@
 import { useState } from "react";
 import {ChooseService,YourTicket} from "./GetTicket"
-import {ChooseService} from "./GetTicket"
-import { NextCustomer } from "./NextCustomer"
+import { NextCustomer, ChooseCounter } from "./NextCustomer"
 import { Routes , Route} from "react-router-dom";
 import './App.css'
 
@@ -20,9 +19,15 @@ function App() {
           <YourTicket></YourTicket>
           }/>
           
+
          <Route path= '/nextcustomer' element={
+          <ChooseCounter></ChooseCounter>
+        }/>
+
+        <Route path= '/nextcustomer/:counter' element={
           <NextCustomer></NextCustomer>
         }/>
+
       </Routes>
     </>
   );
