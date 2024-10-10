@@ -1,6 +1,7 @@
 import { Button, Container} from 'react-bootstrap';
 import { Navbar, Row,Col,Modal} from 'react-bootstrap';
 import { useState } from 'react';
+import { Link } from 'react-router-dom';
 
 function ChooseService() {
     const services = ["servizio 1", "servizio 2", "servizio 3", "servizio 4"];
@@ -41,7 +42,7 @@ function ChooseService() {
             </Container>
 
             <Modal show={showModal} onHide={handleClose} centered>
-                <Modal.Body className='btn-font-1 bg-d text-center py-5'>
+                <Modal.Body className='btn-font-1 text-center py-5 bg-d'>
                     <Modal.Title className='btn-font-4'>You chose:</Modal.Title>
                     <p>{selectedService}</p>
                     <Row>
@@ -51,13 +52,12 @@ function ChooseService() {
                             </Button>
                         </Col>
                         <Col>
-                            <Button className='btn-font-2 custom-btn-confirm' onClick={handleConfirm}>
+                            <Link to={selectedService}><Button className='btn-font-2 custom-btn-confirm' onClick={handleConfirm}>
                                 Get the Ticket
-                            </Button>
+                            </Button></Link>
                         </Col>
                     </Row>
                 </Modal.Body>
-                
             </Modal>
         </>
     );
@@ -78,4 +78,20 @@ function ServiceCard(props) {
     );
 }
 
-export {ChooseService}
+function YourTicket() {
+    return(
+        <>
+    <Navbar className='bg-d custom-navbar'>
+        <Container>
+            <Navbar.Text className='navbar-text-custom c-w'>
+                YOUR TICKET
+            </Navbar.Text>  
+        </Container>
+    </Navbar>
+
+    
+    </>
+    )
+}
+
+export {ChooseService, YourTicket}
