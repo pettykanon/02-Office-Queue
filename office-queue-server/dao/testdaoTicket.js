@@ -4,8 +4,8 @@ import TicketDao from './ticketDao.js';
 
 async function createNewTicket() {
   try {
-    const ticketCode = `T${Date.now()}`; // Example ticket code
-    const serviceType = 6; // Example service type ID
+    const serviceType = 3; // Example service type ID
+    const ticketCode = await TicketDao.generateTicketCode(serviceType); // calculate ticket code
     const estimatedWaitingTime = 1; // Example estimated waiting time
 
     const newTicket = await TicketDao.createTicket(ticketCode, serviceType, estimatedWaitingTime);
@@ -20,7 +20,7 @@ async function createNewTicket() {
 async function getQueueLengthForServiceType(serviceType) {
   
   try {
-    const queueLength = await getQueueLength(serviceType);
+    const queueLength = await TicketDao.getQueueLength(serviceType);
     console.log('Queue length:', queueLength);
   
   } catch (error) {
@@ -28,4 +28,19 @@ async function getQueueLengthForServiceType(serviceType) {
   }
 }
 
-//getQueueLengthForServiceType(1);
+//getQueueLengthForServiceType(3);
+
+async function generateTicketCodeForService(serviceId) {
+  const ticketCode = await TicketDao.generateTicketCode(serviceId);
+  console.log('Generated ticket code:', ticketCode);
+}
+
+//generateTicketCodeForService(3);
+
+async function getTicketById(id) {
+  const ticket = await TicketDao.getTicketById(id);
+  console.log('Ticket:', ticket);
+}
+
+//getTicketById(17);
+

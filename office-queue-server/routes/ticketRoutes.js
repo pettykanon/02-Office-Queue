@@ -23,11 +23,11 @@ SERVICES: A, B, C, D, E
 //3. Add ticket to the appropriate queue
 //4. Respond with the ticket details
 router.post('/', async (req, res) => {
-  const { ticketCode, serviceId } = req.body;
+  const { serviceId } = req.body;
 
   try {
     await ServiceDao.verifyServiceType(serviceId);
-    const newTicket = await TicketDao.createTicket(ticketCode, serviceId, 15);  
+    const newTicket = await TicketDao.createTicket(serviceId, 15);  
     res.status(201).json(newTicket);
 
   } catch (error) {
@@ -61,10 +61,10 @@ router.get('/code/:ticketCode', async (req, res) => {
 //GET /api/tickets/id/:id
 router.get('/id/:id', async (req, res) => {
   const { id } = req.params;
-
+  console.log('id:', id);
   try {
     const ticket = await TicketDao.getTicketById(id);
-
+    console.log('Ticket:', ticket);
     if (!ticket) {
       return res.status(404).json({ error: 'Ticket not found' });
     }
