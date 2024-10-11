@@ -40,5 +40,40 @@ async function verifyServiceType(serviceId) {
   return service;
 }
 
+//GET /api/tickets/:ticketCode
+router.get('/code/:ticketCode', async (req, res) => {
+  const { ticketCode } = req.params;
+
+  try {
+    const ticket = await TicketDao.getTicketByCode(ticketCode);
+
+    if (!ticket) {
+      return res.status(404).json({ error: 'Ticket not found' });
+    }
+
+    return res.status(200).json(code); 
+  } catch (error) {
+    console.error('Error fetching ticket:', error.message);
+    return res.status(500).json({ error: 'Internal server error' });
+  }
+});
+
+//GET /api/tickets/id/:id
+router.get('/id/:id', async (req, res) => {
+  const { id } = req.params;
+
+  try {
+    const ticket = await TicketDao.getTicketById(id);
+
+    if (!ticket) {
+      return res.status(404).json({ error: 'Ticket not found' });
+    }
+
+    return res.status(200).json(ticket);
+  } catch (error) {
+    console.error('Error fetching ticket:', error.message);
+    return res.status(500).json({ error: 'Internal server error' });
+  }
+});
 
 export default router;

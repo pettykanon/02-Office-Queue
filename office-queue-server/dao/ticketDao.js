@@ -8,6 +8,50 @@ const __dirname = path.dirname(__filename);
 // Construct the path to the database file
 const dbPath = path.resolve(__dirname, '../database.db');
 
+//function to get ticket by code
+export function getTicketByCode(ticketCode) {
+  return new Promise((resolve, reject) => {
+    const db = new sqlite3.Database(dbPath, (err) => {
+      if (err) {
+        return reject(err);
+      }
+    });
+
+    const query = `SELECT * FROM ticket WHERE code = ?`;
+    const params = [ticketCode];
+
+    db.get(query, params, (err, row) => {
+      db.close();
+      if (err) {
+        return reject(err);
+      }
+      resolve(row);
+    });
+  });
+}
+
+//function to get ticket by id
+export function getTicketById(id) {
+  return new Promise((resolve, reject) => {
+    const db = new sqlite3.Database(dbPath, (err) => {
+      if (err) {
+        return reject(err);
+      }
+    });
+
+    const query = `SELECT * FROM ticket WHERE id = ?`;
+    const params = [id];
+
+    db.get(query, params, (err, row) => {
+      db.close();
+      if (err) {
+        return reject(err);
+      }
+      resolve(row);
+    });
+  });
+}
+
 //function to insert a new ticket
 export function createTicket(ticketCode, serviceType, estimatedWaitingTime) {
   return new Promise((resolve, reject) => {
@@ -58,10 +102,14 @@ export function getQueueLength(serviceId) {
       resolve(row['COUNT(*)']);
     });
   });
+
 }
+
 const TicketDao = {
   createTicket,
   getQueueLength,
+  getTicketByCode,
+  getTicketById
 
 };
 
