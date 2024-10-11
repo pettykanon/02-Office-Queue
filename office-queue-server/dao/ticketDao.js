@@ -34,7 +34,7 @@ import db from '../db.mjs';
 }
 
 //function to insert a new ticket
- function createTicket(ticketCode, serviceType, estimatedWaitingTime) {
+ function createTicket(ticketCode, serviceId, estimatedWaitingTime) {
   return new Promise((resolve, reject) => {
     const query = `INSERT INTO ticket (code, serviceId, estimatedWaitingTime, statusId) VALUES (?, ?, ?, ?)`;
     const params = [ticketCode, serviceId, estimatedWaitingTime, 1]; // Assuming statusId is set to 1 by default

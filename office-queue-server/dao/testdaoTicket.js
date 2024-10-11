@@ -1,16 +1,14 @@
 
 //this is the test file for creating mock data to test the ticketDao.js file
-import { createTicket } from './ticketDao.js';
-
-import { getQueueLength } from './ticketDao.js';
+import TicketDao from './ticketDao.js';
 
 async function createNewTicket() {
   try {
     const ticketCode = `T${Date.now()}`; // Example ticket code
-    const serviceType = 1; // Example service type ID
-    const estimatedWaitingTime = 15; // Example estimated waiting time
+    const serviceType = 6; // Example service type ID
+    const estimatedWaitingTime = 1; // Example estimated waiting time
 
-    const newTicket = await createTicket(ticketCode, serviceType, estimatedWaitingTime);
+    const newTicket = await TicketDao.createTicket(ticketCode, serviceType, estimatedWaitingTime);
     console.log('New ticket created:', newTicket);
   } catch (error) {
     console.error('Error creating ticket:', error);
