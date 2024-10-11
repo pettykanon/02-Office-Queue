@@ -1,5 +1,5 @@
 
-//this is the test file for creating mock data for testing the ticketDao.js file
+//this is the test file for creating mock data to test the ticketDao.js file
 import { createTicket } from './ticketDao.js';
 
 import { getQueueLength } from './ticketDao.js';
@@ -24,6 +24,7 @@ async function getQueueLengthForServiceType(serviceType) {
   try {
     const queueLength = await getQueueLength(serviceType);
     console.log('Queue length:', queueLength);
+  
   } catch (error) {
     console.error('Error getting queue length:', error);
   }

@@ -1,7 +1,12 @@
 import sqlite3 from 'sqlite3';
 import path from 'path';
+import { fileURLToPath } from 'url';
 
-const dbPath = path.resolve('..', 'database.db');
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
+// Construct the path to the database file
+const dbPath = path.resolve(__dirname, '../database.db');
 
 //function to insert a new ticket
 export function createTicket(ticketCode, serviceType, estimatedWaitingTime) {
@@ -41,7 +46,7 @@ export function getQueueLength(serviceId) {
         return reject(err);
       }
     });
-
+//statusId = 1 means that the ticket's status is "waiting" and should be added to the queue lenght
     const query = `SELECT COUNT(*) FROM ticket WHERE serviceId = ? AND statusId = 1`;
     const params = [serviceId];
 
@@ -54,5 +59,11 @@ export function getQueueLength(serviceId) {
     });
   });
 }
+const TicketDao = {
+  createTicket,
+  getQueueLength,
 
+};
+
+export default TicketDao;
 
