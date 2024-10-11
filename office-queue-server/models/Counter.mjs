@@ -1,6 +1,6 @@
-export default function Counter(
-    counterId,
-  ) {
-    this.counterId = counterId;
-  }
+export default class Counter {
+    constructor(counterId) {
+        this.counterId = counterId;
+    }
+}
   
