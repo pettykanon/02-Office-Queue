@@ -1,15 +1,29 @@
 import { Button, Container} from 'react-bootstrap';
 import { Navbar, Row,Col,Modal,Card} from 'react-bootstrap';
-import { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { useState, useEffect } from 'react';
+import { Link, useNavigate, useParams } from 'react-router-dom';
 import QRcode from 'react-qr-code'
+import API from './API/API.mjs';
 
 function ChooseService() {
-    //get all services
-    const services = ["servizio 1", "servizio 2", "servizio 3", "servizio 4"];
-
+    const [services, setServices] = useState()
     const [selectedService, setSelectedService] = useState(); 
     const [showModal, setShowModal] = useState(false);
+
+    const navigate = useNavigate()
+    //get all services
+    useEffect(()=>{
+        const getServices = async() =>{
+            try{
+                const serv = await API.getServices();
+                setServices(serv)
+            }
+            catch(err){
+                console.log(err);
+            }
+        }
+        getServices();
+    },[])
 
     const handleServiceClick = (s) =>{
         setSelectedService(s)
@@ -21,9 +35,13 @@ function ChooseService() {
         setSelectedService(null);
     };
 
-    const handleConfirm = () => {
+    // confirm and record ticket
+    const handleConfirm = async () => {
         setShowModal(false);
         setSelectedService(null);
+        const ticketID = await API.newTicket()
+
+        navigate(`${selectedService}/${ticketID}`,{relative:"path"})
     };
     
     return (
@@ -54,9 +72,9 @@ function ChooseService() {
                             </Button>
                         </Col>
                         <Col>
-                            <Link to={selectedService}><Button className='btn-font-2 custom-btn-confirm' onClick={handleConfirm}>
+                            <Button className='btn-font-2 custom-btn-confirm' onClick={handleConfirm}>
                                 Get the Ticket
-                            </Button></Link>
+                            </Button>
                         </Col>
                     </Row>
                 </Modal.Body>
@@ -66,6 +84,7 @@ function ChooseService() {
 }
 
 function ServiceCard(props) {
+    
     return (
         <div className="service-card">
             <Button className="service-button" onClick={()=>props.handleServiceClick(props.s)}>
@@ -81,8 +100,24 @@ function ServiceCard(props) {
 }
 
 function YourTicket() {
-    //get and record ticket value
-    const value = 'code' 
+
+    const [code, setCode] = useState()
+    const params = useParams()
+
+    //get ticket value
+    useEffect(()=>{
+
+        const getTicket = async() =>{
+            try{
+                const c = API.getTicket(params.id)
+                setCode(c)
+            }
+            catch(err){
+                console.log(err);
+            }
+        }
+        getTicket();
+    },[])
 
     return(
         <>
@@ -98,7 +133,7 @@ function YourTicket() {
         <Card.Body className='custom-ticket my-3'>
             <Row>
                 <Col className='p-2 m-3 bg-white rounded'>
-                <QRcode value={value} className='m-3'></QRcode>
+                <QRcode value={code} className='m-3'></QRcode>
                 </Col>
             </Row>
             <Row className='w-100 my-2'>

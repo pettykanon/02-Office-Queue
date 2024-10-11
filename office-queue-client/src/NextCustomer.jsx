@@ -3,9 +3,25 @@ import { Navbar } from 'react-bootstrap';
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useParams } from 'react-router-dom';
+import API from './API/API.mjs';
 
 function ChooseCounter() {
-  const counters = ["Counter 1", "Counter 2", "Counter 3", "Counter 4"];
+  
+  const [counters, setCounters] = useState()
+
+  // get all counters
+  useEffect(()=>{
+    const getCounters = async() =>{
+        try{
+            const c = await API.getCounters();
+            setCounters(c)
+        }
+        catch(err){
+            console.log(err);
+        }
+    }
+    getCounters();
+},[])
 
   return (
       <>
@@ -43,12 +59,34 @@ function CounterCard(props) {
 
 function NextCustomer() {
   const params = useParams()
+  const [servicesProvided, setServicesProvided] = useState()
+  const [currentTicket, setCurrentTicket] = useState(0)
 
   //Get service provided of counter#
-  const serviceprovided = ['Shipping','Payments','other']
 
-  //Get current customer served
-  const customerserved = 'C18'
+  useEffect(()=>{
+    const getServicesCounters = async() =>{
+        try{
+            const serv = await API.getServicesCounter(params.counter);
+            setServicesProvided(serv)
+        }
+        catch(err){
+            console.log(err);
+        }
+    }
+    getServicesCounters();
+  },[])
+
+  //Get next ticket served
+
+  const handleNextClient = async () =>{
+      try{
+        const ct = API.nextCustomer(params.counter,currentTicket)
+        setCurrentTicket(ct)
+      }catch{
+        console.log(err);
+      }
+  }
 
   return (<>
     <Navbar className='bg-d custom-navbar'>
@@ -67,17 +105,17 @@ function NextCustomer() {
           <div className='rect-left bg-d mx-5 my-5'>
             <h3 className='rect-title'>Services provided:</h3>
             <ol className="list-custom">
-              {serviceprovided.map((e)=><li className='my-2'>{e}</li>)}
+              {servicesProvided.map((e)=><li className='my-2'>{e}</li>)}
             </ol>
           </div>
         </Col>
         <Col md={7}>
             <div className="rect-right bg-green mx-5 my-5">
               <p className="serving-text">Serving Client:</p>
-              <p className='serving-client'>{customerserved}</p>
+              <p className='serving-client'>{currentTicket}</p>
             </div>
             <div className="button">
-            <Button className="call-next-btn mt-3">Call Next</Button>
+            <Button className="call-next-btn mt-3" onClick={handleNextClient}>Call Next</Button>
             </div>
         </Col>
   </Row >

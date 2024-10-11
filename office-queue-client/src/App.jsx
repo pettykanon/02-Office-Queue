@@ -15,7 +15,7 @@ function App() {
           <ChooseService></ChooseService>
         }/>
 
-        <Route path= '/getticket/:service' element={
+        <Route path= '/getticket/:service/:id' element={
           <YourTicket></YourTicket>
           }/>
           
