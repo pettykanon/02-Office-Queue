@@ -1,25 +1,14 @@
 import sqlite3 from 'sqlite3';
-import path from 'path';
-import { fileURLToPath } from 'url';
+import db from '../db.mjs';
 
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
-
-const dbPath = path.resolve(__dirname, '../database.db');
 
 //function to get all services
-export function getAllServicesId() {
+ function getAllServicesId() {
   return new Promise((resolve, reject) => {
-    const db = new sqlite3.Database(dbPath, (err) => {
-      if (err) {
-        return reject(err);
-      }
-    }); 
 
     const query = 'SELECT id FROM service';
 
     db.all(query, (err, rows) => {
-      db.close();
       if (err) {
         return reject(err);
       }
@@ -28,20 +17,25 @@ export function getAllServicesId() {
   });
 }
 
+//function to verify the service type
+ async function verifyServiceType(serviceId) {
+  const services = await ServiceDao.getAllServicesId(); 
+  const service = services.find(service => service.id === serviceId);
+
+  if (!service) {
+    throw new Error('Invalid service ID');
+  }
+  return service;
+}
+
 //function to get a service by id
-export function getServiceById(serviceId) {
+ function getServiceById(serviceId) {
   return new Promise((resolve, reject) => {
-    const db = new sqlite3.Database(dbPath, (err) => {
-      if (err) {
-        return reject(err);
-      }
-    });
 
     const query = 'SELECT * FROM service WHERE id = ?';
     const params = [serviceId];
 
     db.get(query, params, (err, row) => {
-      db.close();
       if (err) {
         return reject(err);
       }
@@ -53,7 +47,8 @@ export function getServiceById(serviceId) {
 
 const ServiceDao = {
   getAllServicesId,
-  getServiceById
+  getServiceById,
+  verifyServiceType
 };
 
 export default ServiceDao;

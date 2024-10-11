@@ -7,3 +7,4 @@ const db = new sqlite3.Database("database.db", (error) => {
 });
 
 export default db;
+

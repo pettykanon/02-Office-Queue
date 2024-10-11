@@ -16,7 +16,7 @@ router.post('/', async (req, res) => {
   const { ticketCode, serviceId } = req.body;
 
   try {
-    await verifyServiceType(serviceId);
+    await ServiceDao.verifyServiceType(serviceId);
     const newTicket = await TicketDao.createTicket(ticketCode, serviceId, 15);  
     res.status(201).json(newTicket);
 
@@ -29,16 +29,6 @@ router.post('/', async (req, res) => {
   }
 });
 
-//function to verify the service type
-async function verifyServiceType(serviceId) {
-  const services = await ServiceDao.getAllServicesId(); 
-  const service = services.find(service => service.id === serviceId);
-
-  if (!service) {
-    throw new Error('Invalid service ID');
-  }
-  return service;
-}
 
 //GET /api/tickets/:ticketCode
 router.get('/code/:ticketCode', async (req, res) => {
@@ -51,7 +41,7 @@ router.get('/code/:ticketCode', async (req, res) => {
       return res.status(404).json({ error: 'Ticket not found' });
     }
 
-    return res.status(200).json(code); 
+    return res.status(200).json(ticket); 
   } catch (error) {
     console.error('Error fetching ticket:', error.message);
     return res.status(500).json({ error: 'Internal server error' });
