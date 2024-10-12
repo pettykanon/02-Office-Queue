@@ -46,8 +46,8 @@ async function getTicketById(id) {
 
 async function testGetTicketsByServiceAndStatus() {
   try {
-    const serviceId = 2; // Example serviceId
-    const statusId = 2;  // Example statusId
+    const serviceId = 1; // Example serviceId
+    const statusId = 1;  // Example statusId
     const tickets = await TicketDao.getTicketsByServiceAndStatus(serviceId, statusId);
     console.log('Tickets:', tickets);
   } catch (error) {
