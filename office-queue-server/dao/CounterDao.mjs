@@ -9,7 +9,7 @@ export default function Counterdao() {
         
         return new Promise((resolve,Object) => {
             
-            const query = "SELECT * FROM `counter` WHERE `counterId` = ?";
+            const query = 'SELECT serviceid FROM daily_setting WHERE counterId = ?';
             db.all(query, [counterId], (error, rows) => {
                 if (error) throw error;
                 resolve(rows);
