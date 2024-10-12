@@ -1,6 +1,6 @@
 
 //this is the test file for creating mock data to test the ticketDao.js file
-import TicketDao from './ticketDao.js';
+import TicketDao from '../ticketDao.js';
 
 async function createNewTicket() {
   try {
