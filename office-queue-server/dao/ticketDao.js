@@ -159,6 +159,30 @@ export function getTicketsByServiceAndStatus(serviceId, statusId, month) {
   });
 }
 
+// Function to update the statusId of a ticket by incrementing it by 1, but not exceeding 4
+//use this function to notify the customer that his/her ticket has been served (notify served customers story)
+function updateTicketStatus(ticketId) {
+  return new Promise((resolve, reject) => {
+    const query = `
+      UPDATE ticket
+      SET statusId = statusId + 1
+      WHERE id = ? AND statusId < 4 AND statusId > 0
+    `;
+
+    db.run(query, [ticketId], function(err) {
+      if (err) {
+        return reject(err);
+      }
+      if (this.changes === 0) {
+        return reject(new Error('No ticket found with the given ID or statusId is already 4'));
+      }
+      resolve({ message: 'Ticket status updated successfully', ticketId });
+    });
+  });
+}
+
+
+
 
 const TicketDao = {
   createTicket,
@@ -167,7 +191,8 @@ const TicketDao = {
   getTicketById,
   generateTicketCode,
   getTicketsByServiceId,
-  getTicketsByServiceAndStatus
+  getTicketsByServiceAndStatus,
+  updateTicketStatus
 
 };
 

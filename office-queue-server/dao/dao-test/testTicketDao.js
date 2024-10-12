@@ -56,3 +56,10 @@ async function testGetTicketsByServiceAndStatus() {
 }
 
 //testGetTicketsByServiceAndStatus();
+
+async function updateTicketStatus(ticketId) {
+  const result = await TicketDao.updateTicketStatus(ticketId);
+  console.log('Ticket status updated:', result);
+}
+
+//updateTicketStatus(17);
