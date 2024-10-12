@@ -1,14 +1,14 @@
 import express from "express";
 import Counterdao from "../dao/CounterDao.mjs";
 import TicketDao from '../dao/ticketDao.js';
-import ServiceDao from '../dao/serviceDao.js';
+
 
 const router = express.Router();
 
 const CounterDao = new Counterdao();
 
 router.update('/', async (req, res) => {
-    const { counterID, previousTicketCode } = req.body;
+    const { counterID, previousTicketCode } = req.params;
 
     //update the status of the previous ticket to done
     try {
