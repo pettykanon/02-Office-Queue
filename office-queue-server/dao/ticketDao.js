@@ -104,12 +104,29 @@ async function generateTicketCode(serviceId) {
 
 }
 
+//function to get tickets(customers) for each service type
+function getTicketsByServiceId(serviceId) {
+  return new Promise((resolve, reject) => {
+    const query = `SELECT * FROM ticket WHERE serviceId = ?`;
+    const params = [serviceId];
+
+    db.all(query, params, (err, rows) => {
+      if (err) {
+        return reject(err);
+      }
+      resolve(rows);
+    });
+  });
+
+}
+
 const TicketDao = {
   createTicket,
   getQueueLength,
   getTicketByCode,
   getTicketById,
-  generateTicketCode
+  generateTicketCode,
+  getTicketsByServiceId
 
 };
 
