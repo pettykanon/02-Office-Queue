@@ -7,12 +7,12 @@ const router = express.Router();
 
 const CounterDao = new Counterdao();
 
-router.update('/', async (req, res) => {
+router.put('/:counterID/:previousTicketCode', async (req, res) => {
     const { counterID, previousTicketCode } = req.params;
 
     //update the status of the previous ticket to done
     try {
-        await CounterDao.setTicketDone(previopusTicketCode);
+        await CounterDao.setTicketDone(previousTicketCode);
     }
 
     catch (error) {
