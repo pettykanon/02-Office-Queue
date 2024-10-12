@@ -3,10 +3,14 @@ import express from "express";
 import morgan from "morgan";
 import cors from "cors";
 
+import callCustomerRoutes from "./routes/callCustomerRoutes.mjs";
+
 //--- Middlewares
 const app = express();
 app.use(morgan("dev"));
 app.use(express.json());
+
+app.use("/api/callCustomer", callCustomerRoutes);
 
 //--- DAOs
 import TicketDao from "./dao/dao-ticket.mjs";
