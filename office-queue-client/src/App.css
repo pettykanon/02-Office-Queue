@@ -135,6 +135,12 @@
     color: #EDEDED !important; 
 }
 
+.btn-font-5{
+    font-size: 2rem !important;
+    font-weight:normal;
+    color: #EDEDED !important; 
+}
+
 .mod-round{
     overflow: hidden !important;
 }

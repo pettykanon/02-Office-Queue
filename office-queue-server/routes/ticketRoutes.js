@@ -40,30 +40,30 @@ router.post('/', async (req, res) => {
 });
 
 
-//GET /api/tickets/:ticketCode
-router.get('/code/:ticketCode', async (req, res) => {
-  const { ticketCode } = req.params;
+// //GET /api/tickets/:ticketCode
+// router.get('/code/:ticketCode', async (req, res) => {
+//   const { ticketCode } = req.params;
 
-  try {
-    const ticket = await TicketDao.getTicketByCode(ticketCode);
+//   try {
+//     const ticket = await TicketDao.getTicketByCode(ticketCode);
 
-    if (!ticket) {
-      return res.status(404).json({ error: 'Ticket not found' });
-    }
+//     if (!ticket) {
+//       return res.status(404).json({ error: 'Ticket not found' });
+//     }
 
-    return res.status(200).json(ticket); 
-  } catch (error) {
-    console.error('Error fetching ticket:', error.message);
-    return res.status(500).json({ error: 'Internal server error' });
-  }
-});
+//     return res.status(200).json(ticket); 
+//   } catch (error) {
+//     console.error('Error fetching ticket:', error.message);
+//     return res.status(500).json({ error: 'Internal server error' });
+//   }
+// });
 
 //GET /api/tickets/id/:id
-router.get('/id/:id', async (req, res) => {
-  const { id } = req.params;
-  console.log('id:', id);
+router.get('/:ticketId', async (req, res) => {
+  const { ticketId } = req.params;
+  console.log('id:', ticketId);
   try {
-    const ticket = await TicketDao.getTicketById(id);
+    const ticket = await TicketDao.getTicketById(ticketId);
     console.log('Ticket:', ticket);
     if (!ticket) {
       return res.status(404).json({ error: 'Ticket not found' });

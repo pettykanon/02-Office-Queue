@@ -1,9 +1,9 @@
-const SERVER_URL = 'http://localhost:3001';
+const SERVER_URL = 'http://localhost:3000';
 
 // API Get a ticket
 
 const newTicket = async (serviceId) =>{
-    const response = await fetch(`${SERVER_URL}/api/ticket`,{
+    const response = await fetch(`${SERVER_URL}/api/tickets`,{
         method: 'POST',
         headers: {'Content-Type': 'application/json'}, 
         body: JSON.stringify({serviceId: serviceId})
@@ -23,9 +23,10 @@ const newTicket = async (serviceId) =>{
 }
 
 const getTicket = async (ticketId) =>{
-    const response = await fetch(`${SERVER_URL}/api/ticket/${ticketId}`)
+    const response = await fetch(`${SERVER_URL}/api/tickets/${ticketId}`)
     if(response.ok) {
         const code = await response.json();
+        console.log(code)
         return code;
     }
     else {

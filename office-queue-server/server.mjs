@@ -2,7 +2,8 @@
 import express from "express";
 import morgan from "morgan";
 import cors from "cors";
-import ticketsRouter from './routes/ticketRoutes.js'; // Correct relative path
+import serviceRoutes from "./routes/serviceRoutes.js"
+import ticketsRouter from "./routes/ticketRoutes.js"
 
 //--- Middlewares
 const app = express();
@@ -21,6 +22,7 @@ const corsOptions = {
 app.use(cors(corsOptions));
 
 app.use('/api/tickets', ticketsRouter);
+app.use('/api/services', serviceRoutes);
 
 
 //--- Activate the server

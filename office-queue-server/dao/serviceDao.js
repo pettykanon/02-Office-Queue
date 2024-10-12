@@ -17,6 +17,21 @@ import db from '../db.mjs';
   });
 }
 
+//function to get all services
+function getAllServices() {
+  return new Promise((resolve, reject) => {
+
+    const query = 'SELECT * FROM service';
+
+    db.all(query, (err, rows) => {
+      if (err) {
+        return reject(err);
+      }
+    resolve(rows);
+    });
+  });
+}
+
 //function to verify the service type
  async function verifyServiceType(serviceId) {
   const services = await ServiceDao.getAllServicesId(); 
@@ -48,7 +63,8 @@ import db from '../db.mjs';
 const ServiceDao = {
   getAllServicesId,
   getServiceById,
-  verifyServiceType
+  verifyServiceType,
+  getAllServices
 };
 
 export default ServiceDao;
