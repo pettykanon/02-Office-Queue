@@ -4,12 +4,7 @@ import Counterdao  from './CounterDao.mjs';
 
 const CounterDao = new Counterdao();
 
-async function setDailySetting() {
-    
-    try {{
-        const counterId = 1;
-    }
-}
+
 
 
 async function getServices() {
