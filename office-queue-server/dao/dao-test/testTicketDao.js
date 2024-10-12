@@ -44,3 +44,15 @@ async function getTicketById(id) {
 
 //getTicketById(17);
 
+async function testGetTicketsByServiceAndStatus() {
+  try {
+    const serviceId = 2; // Example serviceId
+    const statusId = 2;  // Example statusId
+    const tickets = await TicketDao.getTicketsByServiceAndStatus(serviceId, statusId);
+    console.log('Tickets:', tickets);
+  } catch (error) {
+    console.error('Error fetching tickets:', error);
+  }
+}
+
+//testGetTicketsByServiceAndStatus();

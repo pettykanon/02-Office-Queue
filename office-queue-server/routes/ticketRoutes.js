@@ -88,4 +88,16 @@ router.get('/service/:serviceId', async (req, res) => {
   }
 });
 
+//GET /api/tickets/counter/:counterId/:month/status/:statusId
+router.get('/counter/:counterId/:month/status/:statusId', async (req, res) => {
+  const { counterId, month, statusId } = req.params;
+  try {
+    const tickets = await TicketDao.getTicketsByCounterAndStatus(counterId, month, statusId);
+    res.status(200).json(tickets);
+  } catch (error) {
+    console.error('Error fetching tickets:', error.message);
+    res.status(500).json({ error: 'Internal server error' });
+  }
+});
+
 export default router;
