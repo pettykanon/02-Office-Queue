@@ -22,6 +22,7 @@
 - ServicetypeID  (foreign key)
 
 ### History
+- ID (primary)
 - Counter Id (foreign key)
 - ServiceType 
 - Date
