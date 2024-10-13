@@ -15,7 +15,7 @@ const router = express.Router();
 //         "statusId": 1
 //     }
 // ]
-router.get("/api/queues", async (req, res) => {
+router.get("/queues", async (req, res) => {
   try {
     const queues = await CallCustomerDAO.getQueues();
     res.json(queues);
