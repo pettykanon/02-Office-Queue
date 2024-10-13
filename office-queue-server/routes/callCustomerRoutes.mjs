@@ -1,6 +1,6 @@
-import CallCustomerDAO from '../dao/dao-callCustomer.mjs';
+import CallCustomerDAO from "../dao/dao-callCustomer.mjs";
 
-import express from 'express';
+import express from "express";
 const router = express.Router();
 
 // GET /queues
@@ -15,13 +15,13 @@ const router = express.Router();
 //         "statusId": 1
 //     }
 // ]
-router.get('/queues', async (req, res) => {
-    try {
-        const queues = await CallCustomerDAO.getQueues();
-        res.json(queues);
-    } catch (err) {
-        res.status(500).json({ error: err });
-    }
+router.get("/api/queues", async (req, res) => {
+  try {
+    const queues = await CallCustomerDAO.getQueues();
+    res.json(queues);
+  } catch (err) {
+    res.status(500).json({ error: err });
+  }
 });
 
-export default router
+export default router;

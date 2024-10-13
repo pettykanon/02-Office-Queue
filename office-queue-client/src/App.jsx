@@ -1,7 +1,8 @@
 import { useState } from "react";
-import {ChooseService} from "./GetTicket"
-import { Routes , Route} from "react-router-dom";
-import './App.css'
+import { ChooseService } from "./GetTicket";
+import { Routes, Route } from "react-router-dom";
+import CallCustomer from "./CallCustomer";
+import "./App.css";
 
 function App() {
   const [count, setCount] = useState(0);
@@ -9,10 +10,8 @@ function App() {
   return (
     <>
       <Routes>
-      
-        <Route path= '/getticket' element={
-          <ChooseService></ChooseService>
-        }/>
+        <Route path="/CallCustomer" element={<CallCustomer />} />
+        <Route path="/getticket" element={<ChooseService></ChooseService>} />
       </Routes>
     </>
   );

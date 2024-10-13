@@ -2,21 +2,72 @@ import { useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Navbar, Container, Row, Col, Table } from "react-bootstrap";
 
+import API from "./API/API.mjs";
+
 function GamePage() {
-  const [queues, setQueues] = useState([
-    { serviceName: "ServiceA", length: 10 },
-    { serviceName: "ServiceB", length: 5 },
-    { serviceName: "ServiceC", length: 8 },
-  ]);
-  const [waitingList, setWaitingList] = useState([
-    { serviceName: "ServiceC", ticketCode: "C2" },
-    { serviceName: "ServiceA", ticketCode: "A15" },
-  ]);
-  const [servingList, setServingList] = useState([
-    { ticketCode: "C1", counter: 3 },
-    { ticketCode: "A13", counter: 1 },
-    { ticketCode: "A14", counter: 2 },
-  ]);
+  const [queuesLength, setQueuesLength] = useState([]);
+  const [waitingList, setWaitingList] = useState([]);
+  const [servingList, setServingList] = useState([]);
+
+  useEffect(() => {
+    const getQueues = async () => {
+      try {
+        const queues = await API.getQueues();
+
+        const extractedQueuesLength = extractQueuesLength(tickets);
+        const extractedWaitingList = extractWaitingList(tickets);
+        const extractedServingList = extractServingList(tickets);
+
+        setQueuesLength(extractedQueuesLength);
+        setWaitingList(extractedWaitingList);
+        setServingList(extractedServingList);
+
+        console.log(tickets);
+      } catch (err) {
+        console.log(err);
+      }
+    };
+
+    getQueues();
+    const intervalId = setInterval(getQueues, 5000);
+
+    return () => clearInterval(intervalId);
+  }, []);
+
+  const extractQueuesLength = (tickets) => {
+    const serviceCount = {};
+    tickets.forEach((ticket) => {
+      const serviceName = ticket.service.name;
+      if (!serviceCount[serviceName]) {
+        serviceCount[serviceName] = 0;
+      }
+      serviceCount[serviceName]++;
+    });
+
+    // Convert the serviceCount object to an array of { serviceName, length }
+    return Object.keys(serviceCount).map((serviceName) => ({
+      serviceName,
+      length: serviceCount[serviceName],
+    }));
+  };
+
+  const extractWaitingList = (tickets) => {
+    return tickets
+      .filter((ticket) => ticket.statusId === 1)
+      .map((ticket) => ({
+        serviceName: ticket.service.name,
+        ticketCode: ticket.code,
+      }));
+  };
+
+  const extractServingList = (tickets) => {
+    return tickets
+      .filter((ticket) => ticket.statusId === 2)
+      .map((ticket) => ({
+        ticketCode: ticket.code,
+        counter: ticket.counter,
+      }));
+  };
 
   return (
     <>
@@ -34,7 +85,7 @@ function GamePage() {
               <p className="cc-large-text">QUEUE LENGTH</p>
               <Table className="transparent-table">
                 <tbody>
-                  {queues.map((q, index) => (
+                  {queuesLength.map((q, index) => (
                     <tr key={index}>
                       <td>{q.serviceName}</td>
                       <td>{q.length}</td>
