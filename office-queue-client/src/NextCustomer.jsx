@@ -1,13 +1,13 @@
 import { Container, Row, Col, Button } from 'react-bootstrap';
 import { Navbar } from 'react-bootstrap';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { useParams } from 'react-router-dom';
 import API from './API/API.mjs';
 
 function ChooseCounter() {
   
-  const [counters, setCounters] = useState()
+  const [counters, setCounters] = useState([])
 
   // get all counters
   useEffect(()=>{
