@@ -3,13 +3,14 @@ import { Navbar } from 'react-bootstrap';
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import API from './API/API.mjs';
 
 function ChooseCounter() {
   
   const [counters, setCounters] = useState([])
 
+  const navigate = useNavigate()
   // get all counters
   useEffect(()=>{
     const getCounters = async() =>{
@@ -24,6 +25,10 @@ function ChooseCounter() {
     getCounters();
 },[])
 
+  const handleClickCounter = (s) =>{
+    navigate(`${s}`,{relative:"path"})
+  }
+
   return (
       <>
           <Navbar className='bg-d custom-navbar'>
@@ -36,7 +41,7 @@ function ChooseCounter() {
           <Container fluid>
               <div className="service-container">
                   {counters.map((s) => (
-                      <CounterCard s={s} key={s}/>
+                      <CounterCard s={s} key={s} handleClickCounter={handleClickCounter}/>
                   ))}
               </div>
           </Container>
@@ -47,21 +52,19 @@ function ChooseCounter() {
 function CounterCard(props) {
   return (
       <div className="service-card">
-          <Link to={props.s}>
-          <Button className="service-button">
-              <Row>
-                  <Col className='btn-font-1'>{props.s}</Col>
-              </Row>
-          </Button>
-          </Link>
+            <Button className="service-button" onClick={()=>props.handleClickCounter(props.s)}>
+                <Row>
+                    <Col className='btn-font-1'>{props.s}</Col>
+                </Row>
+            </Button>
       </div>
   );
 }
 
 function NextCustomer() {
   const params = useParams()
-  const [servicesProvided, setServicesProvided] = useState()
-  const [currentTicket, setCurrentTicket] = useState(0)
+  const [servicesProvided, setServicesProvided] = useState([])
+  const [currentTicket, setCurrentTicket] = useState("--")
   const [timer, setTimer] =  useState(0)
 
   //Get service provided of counter#
@@ -92,10 +95,9 @@ function NextCustomer() {
 
   const handleNextClient = async () =>{
       try{
-        
         const ct = await API.nextCustomer(params.counter,currentTicket)
-        setCurrentTicket(ct)
-        await API.newHistory(params.counter, ct.name, timer)
+        setCurrentTicket(ct.code)
+        await API.newHistory(params.counter, ct.code, timer)
 
         setTimer(0)
       }catch{
@@ -107,7 +109,7 @@ function NextCustomer() {
     <Navbar className='bg-d custom-navbar'>
       <Container>
         <Navbar.Brand>
-            <Link to='/nextcustomer'><Button className='back-btn'><i class="bi bi-arrow-left-circle" style={{fontSize:"50px"}}></i></Button></Link>
+            <Link to='/nextcustomer'><Button className='back-btn'><i className="bi bi-arrow-left-circle" style={{fontSize:"50px"}}></i></Button></Link>
          </Navbar.Brand>
         <Navbar.Text className='navbar-text-custom' >
           {params.counter}
@@ -120,7 +122,7 @@ function NextCustomer() {
           <div className='rect-left bg-d mx-5 my-5'>
             <h3 className='rect-title'>Services provided:</h3>
             <ol className="list-custom">
-              {servicesProvided.map((e)=><li className='my-2'>{e}</li>)}
+              {servicesProvided.map((e)=><li className='my-2' key={e}>{e}</li>)}
             </ol>
           </div>
         </Col>

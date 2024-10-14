@@ -3,13 +3,14 @@ import NextCustomerDAO from '../dao/dao-nextCustomer.mjs';
 import { body } from "express-validator";
 import { validationResult } from "express-validator";
 import ServiceDao from '../dao/serviceDAO.mjs';
+
 import dayjs from 'dayjs';
 
 import express from 'express';
 const router = express.Router();
 
 // POST /api/history - Create a new history entry
-router.post('/api/history',
+router.post('/',
   [
     body("counter").exists().withMessage("Counter ID is required"),
     body("service").exists().withMessage("Service name is required"),
