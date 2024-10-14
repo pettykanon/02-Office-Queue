@@ -21,8 +21,27 @@ router.get('/api/setCounters', async (req, res) => {
     }
 })
 
-router.post('/api/setCounters',async (req, res) => {
-    const { counters } = req.body;
+router.post('/api/setCounters/:counterId',
+    [
+        body("services").exists().withMessage("services are required"),
+    ]    
+    ,async (req, res) => {
+        const {counterId} = req.params;
+        const { services } = req.body;
+        
+        try {
+            for (const service of services) {
+                const servicerecord = await ServiceDao.getServiceByName(service);
+                //set the counter using this service
+                await CounterDao.setService(counterId, servicerecord.id);
+            }
+
+            return res.status(200).json({ message: 'Services set successfully' });
+        } catch (error) {
+            console.error('Error setting services:', error.message);
+            return res.status(500).json({ error: 'Internal server error' });
+        }
+    }
 )
 
 
