@@ -2,6 +2,7 @@ import { Container, Row, Col, Button } from 'react-bootstrap';
 import { Navbar } from 'react-bootstrap';
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
+
 import { useParams } from 'react-router-dom';
 import API from './API/API.mjs';
 
@@ -61,8 +62,18 @@ function NextCustomer() {
   const params = useParams()
   const [servicesProvided, setServicesProvided] = useState()
   const [currentTicket, setCurrentTicket] = useState(0)
+  const [timer, setTimer] =  useState(0)
 
   //Get service provided of counter#
+
+  useEffect(()=>{
+
+    const tid = setTimeout(() => {
+        setTimer(t => t+1 )
+    }, 60000);
+
+    return () => clearTimeout(tid);
+  },[timer])
 
   useEffect(()=>{
     const getServicesCounters = async() =>{
@@ -81,8 +92,12 @@ function NextCustomer() {
 
   const handleNextClient = async () =>{
       try{
-        const ct = API.nextCustomer(params.counter,currentTicket)
+        
+        const ct = await API.nextCustomer(params.counter,currentTicket)
         setCurrentTicket(ct)
+        await API.newHistory(params.counter, ct.name, timer)
+
+        setTimer(0)
       }catch{
         console.log(err);
       }
