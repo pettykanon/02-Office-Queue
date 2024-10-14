@@ -18,12 +18,12 @@ app.use(nextCustomerRoutes);
 //import TicketDao from "./dao/ticketDao.js";
 //const ticketDao = new TicketDao();
 
-/* //--- CORS
+ //--- CORS
 const corsOptions = {
   origin: "http://localhost:5173",
   optionsSuccessStatus: 200,
 };
-app.use(cors(corsOptions)); */
+app.use(cors(corsOptions)); 
 
 app.use('/api/tickets', ticketsRouter);
 app.use('/api/services', serviceRoutes);
