@@ -12,8 +12,8 @@ const router = express.Router();
 // POST /api/history - Create a new history entry
 router.post('/',
   [
-    body("counter").exists().withMessage("Counter ID is required"),
-    body("service").exists().withMessage("Service name is required"),
+    body("counterId").exists().withMessage("Counter ID is required"),
+    body("ticketCode").exists().withMessage("Service name is required"),
     body("time").exists().withMessage("Spent time is required")
   ],
   async (req, res, next) => { // Added next parameter for error handling
@@ -23,10 +23,11 @@ router.post('/',
       return res.status(400).json({ errors: errors.array() });
     }
 
-    const { counter, service, time } = req.body;
+    const { counterId, ticketCode, time } = req.body;
     try {
-      let completeService = await ServiceDao.getServiceByName(service);
-      const newHistory = new History(counter, completeService.serviceTypeID, dayjs(), time);
+      let service = await ServiceDao.getServiceByTicketCode(ticketCode);
+      console.log(service);
+      const newHistory = new History(counterId, service.serviceTypeID, dayjs().format("YYYY-MM-DD"), time);
       
       await NextCustomerDAO.insertHistory(newHistory);
       res.status(200).json({ message: "History recorded successfully" });
