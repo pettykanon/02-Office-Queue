@@ -108,6 +108,21 @@ async function getCounterServiceOffered(counterId) {
   });
 }
 
+async function getCounterServicePrivided(counterId) {
+  return new Promise((resolve,reject) =>{
+    
+    const query = "SELECT s.name FROM service AS s JOIN daily_setting AS ds ON ds.serviceId = s.id WHERE ds.counterId = ?" 
+
+    db.all(query,[counterId], (err,rows)=>{
+      if (err) {
+        return reject(err);
+      }
+      resolve(rows.map(e=> e.name))
+    });
+
+  });
+}
+
 const ServiceDao = {
   getAllServicesId,
   getServiceById,
@@ -115,7 +130,8 @@ const ServiceDao = {
   getAllServices,
   getTimeService,
   getCounterServices,
-  getCounterServiceOffered
+  getCounterServiceOffered,
+  getCounterServicePrivided
 };
 
 export default ServiceDao;

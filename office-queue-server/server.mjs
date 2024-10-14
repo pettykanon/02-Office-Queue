@@ -4,19 +4,13 @@ import morgan from "morgan";
 import cors from "cors";
 import serviceRoutes from "./routes/serviceRoutes.js"
 import ticketsRouter from "./routes/ticketRoutes.js"
-
-import nextCustomerRoutes from "./routes/nextCustomerRoutes.mjs";
+import nextCustomerRoutes from "./routes/nextCustomerRoutes.js";
+import counterRoutes from "./routes/counterRoutes.js"
 
 //--- Middlewares
 const app = express();
 app.use(morgan("dev"));
 app.use(express.json());
-
-app.use(nextCustomerRoutes);
-
-//--- DAOs
-//import TicketDao from "./dao/ticketDao.js";
-//const ticketDao = new TicketDao();
 
  //--- CORS
 const corsOptions = {
@@ -25,9 +19,11 @@ const corsOptions = {
 };
 app.use(cors(corsOptions)); 
 
+//--- ROUTES 
 app.use('/api/tickets', ticketsRouter);
 app.use('/api/services', serviceRoutes);
-
+app.use('/api/history', nextCustomerRoutes);
+app.use('/api/counters', counterRoutes);
 
 //--- Activate the server
 const PORT = 3000;
