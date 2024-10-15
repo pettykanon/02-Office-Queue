@@ -8,6 +8,7 @@ import App from "./App.jsx";
 
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap-icons/font/bootstrap-icons.css";
+import "./App.css";
 
 const router = createBrowserRouter([{ path: "/*", element: <App /> }]);
 
