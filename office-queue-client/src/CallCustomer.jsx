@@ -4,7 +4,7 @@ import { Navbar, Container, Row, Col, Table } from "react-bootstrap";
 
 import API from "./API/API.mjs";
 
-function GamePage() {
+function CallCustomer() {
   const [queuesLength, setQueuesLength] = useState([]);
   const [waitingList, setWaitingList] = useState([]);
   const [servingList, setServingList] = useState([]);
@@ -14,15 +14,16 @@ function GamePage() {
       try {
         const queues = await API.getQueues();
 
-        const extractedQueuesLength = extractQueuesLength(tickets);
-        const extractedWaitingList = extractWaitingList(tickets);
-        const extractedServingList = extractServingList(tickets);
+        const extractedQueuesLength = extractQueuesLength(queues);
+        const extractedWaitingList = extractWaitingList(queues);
+        const extractedServingList = extractServingList(queues);
 
         setQueuesLength(extractedQueuesLength);
         setWaitingList(extractedWaitingList);
         setServingList(extractedServingList);
 
-        console.log(tickets);
+        console.log("TICKETS:")
+        console.log(queues)
       } catch (err) {
         console.log(err);
       }
@@ -37,7 +38,7 @@ function GamePage() {
   const extractQueuesLength = (tickets) => {
     const serviceCount = {};
     tickets.forEach((ticket) => {
-      const serviceName = ticket.service.name;
+      const serviceName = ticket.serviceName;
       if (!serviceCount[serviceName]) {
         serviceCount[serviceName] = 0;
       }
@@ -135,4 +136,4 @@ function GamePage() {
   );
 }
 
-export default GamePage;
+export default CallCustomer;

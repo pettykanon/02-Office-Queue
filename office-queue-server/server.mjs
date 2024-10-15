@@ -10,18 +10,18 @@ const app = express();
 app.use(morgan("dev"));
 app.use(express.json());
 
-app.use("/api/callCustomer", callCustomerRoutes);
-
-//--- DAOs
-import TicketDao from "./dao/dao-ticket.mjs";
-const ticketDao = new TicketDao();
-
 //--- CORS
 const corsOptions = {
   origin: "http://localhost:5173",
   optionsSuccessStatus: 200,
 };
 app.use(cors(corsOptions));
+
+app.use("/api/callCustomer", callCustomerRoutes);
+
+//--- DAOs
+import TicketDao from "./dao/dao-ticket.mjs";
+const ticketDao = new TicketDao();
 
 //--- Activate the server
 const PORT = 3000;
