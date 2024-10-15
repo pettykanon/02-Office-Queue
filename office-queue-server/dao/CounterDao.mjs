@@ -77,7 +77,7 @@ export default class Counterdao {
             });
         }
         
-        this.removeService(counterID, serviceID) {
+        this.removeService = (counterID, serviceID) {
             return new Promise((resolve, Object) => {
                 const query = 'DELETE FROM daily_setting WHERE counterId = ? AND serviceId = ?';
                 db.run(query, [counterID, serviceID], (error, rows) => {
