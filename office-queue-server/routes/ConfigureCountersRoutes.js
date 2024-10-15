@@ -21,7 +21,7 @@ router.get('/api/setCounters', async (req, res) => {
     }
 })
 
-router.post('/api/setCounters/:counterId',
+router.post('/api/settingcounters/:counterId',
     [
         body("services").exists().withMessage("services are required"),
     ]    
@@ -29,9 +29,15 @@ router.post('/api/setCounters/:counterId',
         const {counterId} = req.params;
         const { services } = req.body;
         
+        //get current counter's services
+        const currentCounterServicesIds = await CounterDao.getCounterServices(counterId);
+
         try {
             for (const service of services) {
                 const servicerecord = await ServiceDao.getServiceByName(service);
+                //check if counter already has that service
+
+                
                 //set the counter using this service
                 await CounterDao.setService(counterId, servicerecord.id);
             }
