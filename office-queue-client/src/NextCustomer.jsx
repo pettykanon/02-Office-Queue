@@ -64,7 +64,7 @@ function CounterCard(props) {
 function NextCustomer() {
   const params = useParams()
   const [servicesProvided, setServicesProvided] = useState([])
-  const [currentTicket, setCurrentTicket] = useState("--")
+  const [currentTicket, setCurrentTicket] = useState({code: "--"})
   const [timer, setTimer] =  useState(0)
 
   //Get service provided of counter#
@@ -93,16 +93,19 @@ function NextCustomer() {
 
   //Get next ticket served
 
-  const handleNextClient = async () =>{
-      try{
-        const ct = await API.nextCustomer(params.counter,currentTicket)
-        setCurrentTicket(ct.code)
-        await API.newHistory(params.counter, ct.code, timer)
-
-        setTimer(0)
-      }catch{
-        console.log(err);
+  const handleNextClient = async () => {
+    try {
+      if (currentTicket.code != '--') {
+        console.log("Ticket: " + currentTicket.code);
+        await API.newHistory(params.counter, currentTicket.code, timer)
       }
+      const ct = await API.nextCustomer(params.counter, currentTicket.code)
+      console.log(ct);
+      setCurrentTicket(ct)
+      setTimer(0)
+    } catch (err) {
+      console.log("Errore QUI: " + err);
+    }
   }
 
   return (<>
@@ -129,7 +132,7 @@ function NextCustomer() {
         <Col md={7}>
             <div className="rect-right bg-green mx-5 my-5">
               <p className="serving-text">Serving Client:</p>
-              <p className='serving-client'>{currentTicket}</p>
+              <p className='serving-client'>{currentTicket.code}</p>
             </div>
             <div className="button">
             <Button className="call-next-btn mt-3" onClick={handleNextClient}>Call Next</Button>

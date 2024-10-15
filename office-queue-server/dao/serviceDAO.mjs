@@ -65,11 +65,34 @@ export async function verifyServiceType(serviceId) {
     return service;
   }
 
+  export function getServiceByTicketCode(ticketCode) {
+    return new Promise((resolve, reject) => {
+      const query = 'SELECT s.id, s.name, s.averageTime FROM service AS s, ticket AS t WHERE t.code = ? AND t.serviceId = s.id';
+      const params = [ticketCode];
+  
+      db.get(query, params, (err, row) => {
+        if (err) {
+          return reject(err);
+        }
+        console.log(row);
+
+        if (!row) {
+          return reject(new Error(`Ticket with code ${ticketCode} not found`));
+        }
+
+        const service = new Service(row.id, row.name, row.averageTime);
+  
+        resolve(service);
+      });         
+    });
+  }
+
 const ServiceDao = {
   getAllServicesId,
   getServiceById,
   verifyServiceType,
-  getServiceByName
+  getServiceByName,
+  getServiceByTicketCode
 };
 
 export default ServiceDao;

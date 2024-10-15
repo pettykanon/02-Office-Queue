@@ -9,7 +9,7 @@ const CounterDao = new Counterdao();
 router.get('/:counterID/:previousTicketCode', async (req, res) => {
     const { counterID, previousTicketCode } = req.params;
 
-    if (previousTicketCode!= "--"){
+    if (previousTicketCode != "--") {
         //update the status of the previous ticket to done
         try {
             await CounterDao.setTicketDone(previousTicketCode);
@@ -19,7 +19,7 @@ router.get('/:counterID/:previousTicketCode', async (req, res) => {
             console.error('Error setting as done:', error);
         }
     }
-    
+
     //get the counter services
     try {
         const services = await CounterDao.getCounterServices(counterID);
@@ -28,17 +28,16 @@ router.get('/:counterID/:previousTicketCode', async (req, res) => {
         let longestQueue = 0;
         let nextService = null;
 
-        for (const service of services) {
+        for (let service of services) {
             try {
                 const queueLength = await TicketDao.getQueueLength(service.serviceId);
-                console.log('Queue Length:', queueLength);
 
                 if (queueLength > longestQueue) {
                     longestQueue = queueLength;
                     nextService = service;
                 }
                 else if (queueLength === longestQueue) {
-                    if (service.averageTime < nextService.averageTime) {
+                    if (nextService === null || service.averageTime < nextService.averageTime) {
                         nextService = service;
                         longestQueue = queueLength;
                     }
@@ -56,10 +55,12 @@ router.get('/:counterID/:previousTicketCode', async (req, res) => {
         try {
             const nextTicket = await CounterDao.getServiceWaitingTicket(nextService.serviceId);
             console.log('Next ticket:', nextTicket);
-            await CounterDao.setTicketServing(nextTicket.code)
+            if (nextTicket.code !== '--') {
+                await CounterDao.setTicketServing(nextTicket.code)
+            }
             return res.status(200).json(nextTicket);
-        }
 
+        }
         catch (error) {
             console.error('Error getting next ticket:', error);
         }
@@ -74,17 +75,17 @@ router.get('/:counterID/:previousTicketCode', async (req, res) => {
 
 router.get('/', async (req, res) => {
     try {
-      const services = await CounterDao.getAllCounters()
-      
-      if (!services) {
-        return res.status(404).json({ error: 'Services not found' });
-      }
-  
-      return res.status(200).json(services);
-    } catch (error) {
-      console.error('Error fetching ticket:', error.message);
-      return res.status(500).json({ error: 'Internal server error' });
-    }
-  });
+        const services = await CounterDao.getAllCounters()
 
-  export default router;
+        if (!services) {
+            return res.status(404).json({ error: 'Services not found' });
+        }
+
+        return res.status(200).json(services);
+    } catch (error) {
+        console.error('Error fetching ticket:', error.message);
+        return res.status(500).json({ error: 'Internal server error' });
+    }
+});
+
+export default router;

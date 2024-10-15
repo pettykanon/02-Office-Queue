@@ -10,7 +10,7 @@ export default class Counterdao {
 
             return new Promise((resolve, Object) => {
 
-                const query = 'SELECT serviceid FROM daily_setting WHERE counterId = ?';
+                const query = 'SELECT s.id AS serviceId, s.name, s.averageTime FROM daily_setting AS ds, service AS s WHERE ds.counterId = ? AND ds.serviceId = s.id';
                 db.all(query, [counterId], (error, rows) => {
                     if (error) throw error;
                     resolve(rows);
@@ -46,7 +46,12 @@ export default class Counterdao {
                 const query = 'SELECT code FROM ticket WHERE serviceId = ? AND statusId = 1';
                 db.get(query, [serviceID], (error, rows) => {
                     if (error) throw error;
-                    resolve(rows);
+                    if(!rows) {
+                        resolve({code: "--"});
+                    }
+                    else {
+                        resolve(rows);
+                    }
                 });
             });
         };
