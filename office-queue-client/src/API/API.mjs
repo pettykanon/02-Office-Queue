@@ -73,11 +73,10 @@ const getCounters = async () =>{
     }
 }
 
-const getServicesCounter = async (counterId) =>{
+const getServicesCounter = async (counterId) => {
     const response = await fetch(`${SERVER_URL}/api/services/${counterId}`)
     if(response.ok) {
-        const services = await response.json();
-        return services;
+        return await response.json();
     }
     else {
     const errDetail = await response.json();
@@ -86,6 +85,21 @@ const getServicesCounter = async (counterId) =>{
     if (errDetail.message)
         throw errDetail.message
     throw "Something went wrong"
+    }
+}
+
+const getServicesCounterModified = async (counterId) => {
+    const response = await fetch(`${SERVER_URL}/api/settingcounters/${counterId}`)
+    if(response.ok) {
+        return await response.json();
+    }
+    else {
+        const errDetail = await response.json();
+        if (errDetail.error)
+            throw errDetail.error
+        if (errDetail.message)
+            throw errDetail.message
+        throw "Something went wrong"
     }
 }
 
@@ -126,7 +140,7 @@ const newHistory = async (counterId, code, time) =>{
     }
 }
 
-const newCounterCOnfig = async (counterId, services) =>{
+const newCounterConfig = async (counterId, services) => {
     const response = await fetch(`${SERVER_URL}/api/settingcounters/${counterId}`,{
         method: 'POST',
         headers: {'Content-Type': 'application/json'}, 
@@ -142,6 +156,6 @@ const newCounterCOnfig = async (counterId, services) =>{
     }
 }
 
-const API ={newTicket,getTicket, getServices,getServicesCounter, getCounters, nextCustomer, newHistory, newCounterCOnfig}
+const API ={newTicket,getTicket, getServices,getServicesCounter, getCounters, nextCustomer, newHistory, newCounterConfig, getServicesCounterModified}
 
 export default API;

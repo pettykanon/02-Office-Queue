@@ -1,4 +1,4 @@
-import {Button, Container} from 'react-bootstrap';
+import {Alert, Button, Container, ModalDialog} from 'react-bootstrap';
 import {Navbar, Row, Col, Modal, Card} from 'react-bootstrap';
 import {useState, useEffect} from 'react';
 import {Link, useNavigate, useParams} from 'react-router-dom';
@@ -9,17 +9,10 @@ function SetUpCounter() {
     const {counterId} = useParams();
     const navigate = useNavigate()
 
-    const [services, setServices] = useState([
-        {id: 1, name: "Service 1", selected: false},
-        {id: 2, name: "Service 2", selected: false},
-        {id: 3, name: "Service 3", selected: false},
-        {id: 4, name: "Service 4", selected: false},
-        {id: 5, name: "Service 5", selected: false},
-        {id: 6, name: "Service 6", selected: false},
-        {id: 7, name: "Service 7", selected: false},
-        {id: 8, name: "Service 8", selected: false},
-        {id: 9, name: "Service 9", selected: false}
-    ])
+    const [services, setServices] = useState([])
+
+    const [errorMessage, setErrorMessage] = useState('')
+    const [successMessage, setSuccessMessage] = useState('')
 
     const switchService = (id) => {
         setServices(services.map((s) => {
@@ -30,7 +23,47 @@ function SetUpCounter() {
         }))
     }
 
-    console.log(services)
+    const sendNewConfiguration = async () => {
+        const activeServices = services.filter((service) => service.selected).map((service) => service.id);
+        try {
+            await API.newCounterConfig(counterId, activeServices);
+            setSuccessMessage('Configuration saved successfully');
+        } catch (err) {
+            setErrorMessage(err);
+        }
+    }
+
+    useEffect(
+        () => {
+            const getServicesCounter = async (counterId) => {
+                try {
+                    const allServices = await API.getServices();
+                    const activeServices = await API.getServicesCounterModified(counterId);
+                    const services = allServices.map((service) => {
+                            return {
+                                id: service.id,
+                                name: service.name,
+                                selected: activeServices.includes(service.id)
+                            }
+                        }
+                    )
+                    setServices(services)
+                } catch (err) {
+                    console.log(err);
+                }
+            }
+            getServicesCounter(counterId);
+        }, [counterId]
+    )
+
+    useEffect(() => {
+        if(errorMessage!=="" || successMessage!=="") {
+            setTimeout(() => {
+                setErrorMessage('')
+                setSuccessMessage('')
+            }, 2000)
+        }
+    }, [errorMessage, successMessage])
 
     return (
         <>
@@ -46,6 +79,16 @@ function SetUpCounter() {
                     <div className="d-flex w-100 h-100">
                         <div
                             className="d-flex flex-column justify-content-center align-items-center w-100 h-100 rounded-a_lot bg-d p-8 gap-4">
+                            <Modal show={!!errorMessage} dismissible>
+                                <Modal.Body style={{ backgroundColor: 'red', color: "white" }}>
+                                    {errorMessage}
+                                </Modal.Body>
+                            </Modal>
+                            <Modal show={!!successMessage} dismissible>
+                                <Modal.Body style={{ backgroundColor: 'green', color: "white" }}>
+                                    {successMessage}
+                                </Modal.Body>
+                            </Modal>
                             <div className="d-flex flex-row w-50 text-white justify-content-center">
                                 <p className="m-0 p-0 text-4xl font-bold">Services Provided</p>
                             </div>
@@ -61,6 +104,8 @@ function SetUpCounter() {
                                     Cancel
                                 </Button>
                                 <Button className='btn-font-2 custom-btn-confirm' onClick={() => {
+                                    sendNewConfiguration().then(r => {
+                                    })
                                 }}>
                                     Done
                                 </Button>
