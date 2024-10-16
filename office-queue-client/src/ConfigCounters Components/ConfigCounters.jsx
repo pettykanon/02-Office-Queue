@@ -1,7 +1,7 @@
-import {Button, Container} from 'react-bootstrap';
-import {Navbar, Row, Col, Modal, Card} from 'react-bootstrap';
-import {useState, useEffect} from 'react';
-import {Link, useNavigate, useParams} from 'react-router-dom';
+import { Button, Container } from 'react-bootstrap';
+import { Navbar, Row, Col, Modal, Card } from 'react-bootstrap';
+import { useState, useEffect } from 'react';
+import { Link, useNavigate, useParams } from 'react-router-dom';
 import API from '../API/API.mjs';
 
 function ConfigCounters() {
@@ -26,7 +26,7 @@ function ConfigCounters() {
         console.log(selectedService.id)
         const ticket = await API.newTicket(selectedService.id)
         console.log(ticket)
-        navigate(`${selectedService.name}/${ticket.id}`, {relative: "path"})
+        navigate(`${selectedService.name}/${ticket.id}`, { relative: "path" })
     };
 
     return (
@@ -34,6 +34,7 @@ function ConfigCounters() {
             <div className="d-flex flex-column vw-100 vh-100">
                 <Navbar className='bg-d custom-navbar'>
                     <Container>
+                        
                         <Navbar.Text className='navbar-text-custom c-w'>
                             CONFIG COUNTERS
                         </Navbar.Text>
@@ -57,6 +58,7 @@ function ConfigCounters() {
                         <div
                             className="d-flex flex-column gap-xl-5 rounded-a_lot bg-d h-100 w-25 align-content-center justify-content-center" role="button"
                             onClick={() => {
+                                navigate('/stats')
                             }}>
                             <div className="w-100 text-center">
                                 <p className="btn-font-1 text-white text-center m-0 p-0">See</p>
@@ -73,4 +75,4 @@ function ConfigCounters() {
     );
 }
 
-export {ConfigCounters}
+export { ConfigCounters }

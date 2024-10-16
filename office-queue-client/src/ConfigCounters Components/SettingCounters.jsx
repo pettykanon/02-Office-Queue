@@ -1,7 +1,8 @@
-import {Button, Container} from 'react-bootstrap';
-import {Navbar, Row, Col} from 'react-bootstrap';
-import {useState, useEffect} from 'react';
-import {useNavigate} from 'react-router-dom';
+import { Button, Container } from 'react-bootstrap';
+import { Navbar, Row, Col } from 'react-bootstrap';
+import { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import API from '../API/API.mjs';
 
 function SettingCounters() {
@@ -25,6 +26,10 @@ function SettingCounters() {
             <div className="d-flex flex-column vw-100 vh-100">
                 <Navbar className='bg-d custom-navbar'>
                     <Container>
+                        <Navbar.Brand>
+                            <Link to='/configcounters'><Button className='back-btn'><i className="bi bi-arrow-left-circle"
+                                style={{ fontSize: "50px" }}></i></Button></Link>
+                        </Navbar.Brand>
                         <Navbar.Text className='navbar-text-custom c-w'>
                             SETTING COUNTERS
                         </Navbar.Text>
@@ -48,13 +53,13 @@ function SettingCounters() {
     );
 }
 
-function ContainerEntry({name, id}) {
+function ContainerEntry({ name, id }) {
     const navigate = useNavigate()
 
     return (
         <div className="service-card">
             <Button className="service-button" onClick={() => {
-                navigate(`${id}`, {relative: "path"})
+                navigate(`${id}`, { relative: "path" })
             }}>
                 <Row>
                     <Col className='btn-font-1 text-white'>{name}</Col>
@@ -64,4 +69,4 @@ function ContainerEntry({name, id}) {
     );
 }
 
-export {SettingCounters}
+export { SettingCounters }

@@ -86,7 +86,7 @@ function SeeStats() {
             <Navbar className='bg-d custom-navbar'>
                 <Container>
                     <Navbar.Brand>
-                        <Link to='/nextcustomer'><Button className='back-btn'><i className="bi bi-arrow-left-circle"
+                        <Link to='/configcounters'><Button className='back-btn'><i className="bi bi-arrow-left-circle"
                                                                                  style={{fontSize: "50px"}}></i></Button></Link>
                     </Navbar.Brand>
                     <Navbar.Text className='navbar-text-custom'>
