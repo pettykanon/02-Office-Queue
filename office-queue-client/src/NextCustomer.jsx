@@ -90,9 +90,14 @@ function NextCustomer() {
         await API.newHistory(params.counter, currentTicket.code)
       }
       const ct = await API.nextCustomer(params.counter, currentTicket.code)
+
       console.log(ct);
-      setCurrentTicket(ct)
+      setCurrentTicket(ct);
+
+      await API.addCounterCustomer(params.counter,currentTicket.code)
+
       setTimer(0)
+
     } catch (err) {
       console.log("Errore QUI: " + err);
     }

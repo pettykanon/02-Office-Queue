@@ -58,7 +58,7 @@ function CallCustomer() {
     return tickets
       .filter((ticket) => ticket.statusId === 1)
       .map((ticket) => ({
-        serviceName: ticket.service.name,
+        serviceName: ticket.serviceName,
         ticketCode: ticket.code,
       }));
   };
@@ -138,4 +138,4 @@ function CallCustomer() {
   );
 }
 
-export default CallCustomer;
+export {CallCustomer};

@@ -28,10 +28,6 @@ app.use('/api/history', nextCustomerRoutes);
 app.use('/api/counters', counterRoutes);
 app.use("/api/callCustomer", callCustomerRoutes);
 
-//--- DAOs
-import TicketDao from "./dao/dao-ticket.mjs";
-const ticketDao = new TicketDao();
-
 //--- Activate the server
 const PORT = 3000;
 app.listen(PORT, () =>

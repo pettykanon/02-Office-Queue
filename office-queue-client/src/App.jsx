@@ -2,7 +2,7 @@ import { useState } from "react";
 import {ChooseService,YourTicket} from "./GetTicket"
 import { NextCustomer, ChooseCounter } from "./NextCustomer"
 import { Routes , Route} from "react-router-dom";
-import CallCustomer from "./CallCustomer";
+import {CallCustomer} from "./CallCustomer";
 import "./App.css";
 
 function App() {

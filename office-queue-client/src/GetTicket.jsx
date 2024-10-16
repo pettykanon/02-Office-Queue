@@ -94,7 +94,7 @@ function ServiceCard(props) {
                     <Col className='btn-font-1'>{props.s.name}</Col>
                 </Row>
                 <Row>
-                    <Col className='btn-font-2'>Questo è un servizio</Col>
+                    <Col className='btn-font-2'>This is a service</Col>
                 </Row>
             </Button>
         </div>
@@ -103,7 +103,7 @@ function ServiceCard(props) {
 
 function YourTicket() {
 
-    const [code, setCode] = useState({code:"ciao"})
+    const [code, setCode] = useState({code:"--"})
     const params = useParams()
 
     //get ticket value
@@ -137,17 +137,17 @@ function YourTicket() {
         <Card.Body className='custom-ticket my-3'>
             <Row>
                 <Col className='p-2 m-3 bg-white rounded'>
-                <QRcode value={`Il tuo Numero: ${code.code} \nEstimated Waiting Time: ${code.estimatedWaitingTime} `} className='m-3'></QRcode>
+                <QRcode value={`Your ticket code: ${code.code} \nEstimated Waiting Time: ${code.estimatedWaitingTime} m`} className='m-3'></QRcode>
                 </Col>
             </Row>
             <Row>
                 <Col>
-                    <p className='btn-font-4'>{`Il tuo Ticket: ${code.code}`}</p>
+                    <p className='btn-font-4'>{`Your ticket code: ${code.code}`}</p>
                 </Col>
             </Row>
             <Row>
                 <Col>
-                    <p className='btn-font-4'>{`Estimated Waiting Time: ${code.estimatedWaitingTime} `}</p>
+                    <p className='btn-font-4'>{`Estimated Waiting Time: ${code.estimatedWaitingTime} m`}</p>
                 </Col>
             </Row>
             <Row className='w-100 my-2'>

@@ -139,8 +139,28 @@ const getQueues = async (ticketId) => {
       throw "Something went wrong";
     }
   };
+
+  const addCounterCustomer = async (counterId, code) =>{
+    const response = await fetch(`${SERVER_URL}/api/ticket/${counterId}`,{
+        method: "PUT",
+        headers: {'Content-Type': 'application/json'}, 
+        body: JSON.stringify({code: code})
+      })
+    if(response.ok) {
+        const ticketid = await response.json();
+        return ticketid;
+    }
+    else {
+    const errDetail = await response.json();
+    if (errDetail.error)
+        throw errDetail.error
+    if (errDetail.message)
+        throw errDetail.message
+    throw "Something went wrong"
+    }
+}
   
 
-const API ={newTicket,getTicket, getServices,getServicesCounter, getCounters, nextCustomer, newHistory, getQueues}
+const API ={newTicket,getTicket, getServices,getServicesCounter, getCounters, nextCustomer, newHistory, getQueues, addCounterCustomer}
 
 export default API;

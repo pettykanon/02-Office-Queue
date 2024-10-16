@@ -3,8 +3,6 @@ import db from "../db.mjs";
 
 export default class Counterdao {
     constructor() {
-
-
         /* retrieve all the services offered by a counter*/
         this.getCounterServices = (counterId) => {
 

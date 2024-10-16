@@ -37,8 +37,8 @@ import db from '../db.mjs';
 async function createTicket(serviceId, estimatedWaitingTime) {
   return new Promise(async (resolve, reject) => {
     const generatedTicketCode = await generateTicketCode(serviceId);
-    const query = `INSERT INTO ticket (code, serviceId, estimatedWaitingTime, statusId) VALUES (?, ?, ?, ?)`;
-    const params = [generatedTicketCode, serviceId, estimatedWaitingTime, 1]; // Assuming statusId is set to 1 by default
+    const query = `INSERT INTO ticket (code, serviceId, estimatedWaitingTime, statusId, counterId) VALUES (?, ?, ?, ?, ?)`;
+    const params = [generatedTicketCode, serviceId, estimatedWaitingTime, 1, null]; // Assuming statusId is set to 1 by default
 
     db.run(query, params, function(err) {
       if (err) {
@@ -104,12 +104,28 @@ async function generateTicketCode(serviceId) {
 
 }
 
+function setCounterTicket(code, counterId) {
+  return new Promise((resolve, reject) => {
+//statusId = 1 means that the ticket's status is "waiting" and should be added to the queue lenght
+    const query = `UPDATE ticket SET counterId = ? WHERE code = ?`;
+    const params = [counterId, code];
+
+    db.run(query, params, function(err) {
+      if (err) {
+        return reject(err);
+      }
+      resolve(this.changes)
+    });
+})
+}
+
 const TicketDao = {
   createTicket,
   getQueueLength,
   getTicketByCode,
   getTicketById,
-  generateTicketCode
+  generateTicketCode,
+  setCounterTicket
 
 };
 
