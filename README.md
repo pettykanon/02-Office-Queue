@@ -17,20 +17,26 @@
 - Id (primary key)
 - Code
 - ServiceId (foreign key)
-- Status (stricted to: waiting, serving, done, expired)
+- StatusId (foreign key)
+- CounterId (foreign key)
 
 ### DailySetting
 
-- ID (primary key)
+- Id (primary key)
 - CounterId (foreign key)
 - ServiceId (foreign key)
 
 ### History
 
-- ID (primary key)
+- Id (primary key)
 - CounterId (foreign key)
 - ServiceId (foreign key)
 - Date
+
+### Tickt Status
+
+- Id (primary key)
+- status
 
 ## API Stories
 
