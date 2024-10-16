@@ -1,0 +1,514 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+* {
+    font-family: 'Inter', sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+/*------ General--------*/
+.bg-d {
+    background-color: #444554;
+    align-content: center;
+}
+.bg-w {
+    background-color: #EDEDED;
+}
+
+.bg-r {
+    background-color: #EC7171;
+}
+
+.text-my_red {
+    color: #EC7171;
+}
+
+.border-darker-d {
+    border: 2px solid #444554;
+}
+
+.rounded {
+    border-radius: 30px;
+}
+
+.rounded-a_lot {
+    border-radius: 50px;
+}
+
+.custom-navbar {
+    height: 100px; 
+    border-bottom-left-radius: 50px;
+    border-bottom-right-radius: 50px;
+    display: flex;
+    justify-content: center; 
+    align-items: center;
+}
+
+.navbar-text-custom {
+    color: #EDEDED !important;
+    font-weight: bold; 
+    font-size: 2.5rem; 
+    margin: auto; 
+    text-align: center; 
+}
+
+.back-btn {
+    background-color: #444554 !important;
+    border: none !important;
+}
+
+.service-container::-webkit-scrollbar {
+    border-radius:15px;
+    background-color: #B7B8CA;
+    height: 25px; 
+}
+
+.service-container::-webkit-scrollbar-thumb {
+    background-color: #444554; 
+    border-radius: 15px;
+}
+
+/*------ Get ticket--------*/
+
+.custom-service-btn{
+    padding: 15px 60px;
+    font-size: 2rem;
+}
+
+.service-container {
+    display: flex;
+    overflow-x: auto; 
+    white-space: nowrap; 
+    padding: 50px 50px ;
+}
+
+.service-card {
+    flex: 0 0 33.33%;
+    max-width: 30%;
+    padding: 10px;
+    box-sizing: border-box;
+}
+
+.custom-ticket {
+    margin: auto;
+    background-color: #868793;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    border-radius: 20px;
+}
+
+.service-button {
+    width: 95%;
+    height: 400px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 10% !important;
+    background-color: #444554 !important;
+    border: none !important;
+}
+
+.custom-btn-canc{
+    width: 80%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 20px !important;
+    background-color: #D9D9D9 !important;
+    border: none !important;
+}
+
+.custom-btn-confirm{
+    width: 80%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 20px !important;
+    background-color: #EC7171 !important;
+    border: none !important;
+}
+
+.btn-font-1{
+    font-size: 3.5rem !important;
+    font-weight:normal;
+    color: #EC7171 !important; 
+}
+
+.btn-font-2{
+    font-size: 1rem !important;
+    font-weight:normal;
+    color: #EDEDED !important; 
+}
+
+.btn-font-3{
+    font-size: 1rem !important;
+    font-weight:normal;
+    color: #282828 !important; 
+}
+
+.btn-font-4{
+    font-size: 25px !important;
+    font-weight:lighter !important;
+    color: #EDEDED !important; 
+}
+
+.btn-font-5{
+    font-size: 2rem !important;
+    font-weight:normal;
+    color: #EDEDED !important; 
+}
+
+.mod-round{
+    overflow: hidden !important;
+}
+
+.mod-transp{
+    background-color: transparent !important;
+}
+
+.custom-modal .modal-content {
+    border-radius: 25px;
+    overflow: hidden;
+}
+
+.rect-left {
+    background-color: #444554; 
+    color: #EDEDED;
+    border-radius: 15px;
+    height: 100%;
+    flex-direction: column;
+    margin-top:10px;
+}
+
+.rect-title {
+    margin-bottom:10px;
+    font-size: 1.5rem;
+    font-weight: bold;
+    text-align: center;
+}
+
+.list-custom {
+    margin-left: 10px;
+    text-align: left;
+    font-size: 1.2rem;
+}
+
+.rect-right {
+    background-color: #8EE789; 
+    color: #444554;
+    border-radius: 15px;
+    display: flex;
+    justify-content: center; 
+    align-items: center;
+    flex-direction: column;
+    margin-top: 10px;
+
+}
+
+.serving-text {
+    margin: 0;
+    font-size: 2rem;
+    font-weight:400;
+    text-align: center;
+
+}
+.serving-client{
+    margin: 0;
+    font-size: 4rem;
+    font-weight:bold;
+    text-align: center;
+}
+
+.button {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    margin-top: 60px;
+}
+
+
+.call-next-btn {
+    background-color: #444554 !important;
+    color: #8EE789 !important;
+    border: none;
+    padding: 10px 20px;
+    width: 40%;
+    height: 150px !important;
+    font-size: 45px !important;
+    font-weight: bold !important;
+    border-radius: 25px !important;
+    border-color: #444554 !important;
+}
+
+/*------ Call Customer--------*/
+/* cc stands for call customer */
+.cc-large-text {
+    font-size: 30px;
+    font-weight: bold;
+    text-align: center;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    color: inherit;
+}
+
+.cc-queue-length-card {
+    width: 350px;
+    height: 600px;
+    padding: 10px;
+    color: #EDEDED;
+    background-color: #444554;
+    border: none;
+    border-radius: 50px;
+}
+.cc-waiting-card {
+    width: 350px;
+    height: 600px;
+    padding: 10px;
+    color: #EDEDED;
+    background-color: #444554;
+    border: none;
+    border-radius: 50px;
+}
+.cc-serving-card {
+    width: 350px;
+    height: 600px;
+    padding: 10px;
+    color: #1E1E1E;
+    background-color: #8EE789;
+    border: none;
+    border-radius: 50px;
+}
+
+.transparent-table {
+    text-align: center;
+    background-color: transparent;
+    overflow: hidden;
+}
+  
+.transparent-table th,
+.transparent-table td {
+    font-size: 20px !important;
+    font-weight: bold;
+    background-color: transparent !important;
+    border: none;
+    padding: 10px;
+}
+
+.cc-queue-length-card .transparent-table th,
+.cc-queue-length-card .transparent-table td{
+    color: #EDEDED !important;
+}
+.cc-queue-length-card .transparent-table td:nth-child(2) {
+    color: #EC7171 !important;
+}
+
+.cc-waiting-card .transparent-table th,
+.cc-waiting-card .transparent-table td {
+    border: 1px solid #EDEDED;
+    color: #EDEDED !important;
+}
+.cc-waiting-card .transparent-table th,
+.cc-waiting-card .transparent-table td {
+    border: 1px solid white;
+    padding: 10px;
+}
+.cc-waiting-card .transparent-table th:first-child,
+.cc-waiting-card .transparent-table td:first-child {
+    border-left: none; /* Remove left border from the first column */
+}
+.cc-waiting-card .transparent-table th:last-child,
+.cc-waiting-card .transparent-table td:last-child {
+    border-right: none; /* Remove right border from the last column */
+}
+.cc-waiting-card .transparent-table tr:first-child th,
+.cc-waiting-card .transparent-table tr:first-child td {
+    border-top: none; /* Remove top border from the first row */
+}
+.cc-waiting-card .transparent-table tr:last-child th,
+.cc-waiting-card .transparent-table tr:last-child td {
+    border-bottom: none; /* Remove bottom border from the last row */
+}
+
+
+.cc-serving-card .transparent-table th,
+.cc-serving-card .transparent-table td {
+    color: #1E1E1E !important;
+}
+/* See Stats CSS */
+.filter-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #444554;
+    border-radius: 22px;
+    max-width: 300px;
+    margin: 20px auto;
+    border: 2px solid #EDEDED;
+}
+
+.filter-item {
+    flex: 1;
+    padding: 10px 20px;
+    cursor: pointer;
+    color: #EDEDED;
+    border-top-left-radius: 20px;
+    border-bottom-left-radius: 20px;
+    background-color: #444554;
+    border-right: 2px solid #EDEDED;
+    text-align: center;
+    transition: color 0.3s ease, background-color 0.3s ease;
+}
+
+.filter-month {
+    flex: 1;
+    padding: 10px 20px;
+    cursor: pointer;
+    color: #EDEDED;
+    border-top-right-radius: 20px;
+    border-bottom-right-radius: 20px;
+    background-color: #444554;
+    border-right: 2px solid #EDEDED;
+    text-align: center;
+    transition: color 0.3s ease, background-color 0.3s ease;
+}
+
+.filter-week {
+    flex: 1;
+    padding: 10px 20px;
+    cursor: pointer;
+    color: #EDEDED;
+    background-color: #444554;
+    border-right: 2px solid #EDEDED;
+    text-align: center;
+    transition: color 0.3s ease, background-color 0.3s ease;
+}
+
+.filter-month {
+    border-right: none;
+}
+
+.filter-item.active, .filter-month.active, .filter-week.active {
+    color: #444554;
+    background-color: #EDEDED;
+}
+
+.filter-item:hover, .filter-month:hover, .filter-week:hover {
+    background-color: #5a5b6a;
+}
+.select-day {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #444554;
+    border-radius: 22px;
+    max-width: 300px;
+    margin: 20px auto;
+    padding: 10px 20px;
+    border: 2px solid #EDEDED;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.select-day:hover {
+    background-color: #5a5b6a;
+}
+
+.select-day.disabled {
+    background-color: #666677; 
+    cursor: not-allowed; 
+}
+
+.select-day.disabled:hover {
+    background-color: #666677;
+}
+
+.option-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #444554;
+    border-radius: 22px;
+    max-width: 300px;
+    margin: 20px auto;
+    border: 2px solid #EDEDED;
+}
+
+.option-item {
+    flex: 1;
+    padding: 10px 20px;
+    cursor: pointer;
+    color: #EDEDED;
+    background-color: #444554;
+    text-align: center;
+    border-right: 2px solid #EDEDED;
+    border-top-left-radius: 20px;
+    border-bottom-left-radius: 20px;
+    border-bottom-right-radius: 20px;
+    border-top-right-radius: 20px;
+    transition: color 0.3s ease, background-color 0.3s ease;
+}
+
+.option-item:first-child {
+    border-top-right-radius: 0px;
+    border-bottom-right-radius: 0px;
+
+}
+
+.option-item:last-child {
+    border-top-left-radius: 0px;
+    border-bottom-left-radius: 0px;
+}
+
+.option-item.active {
+    color: #444554;
+    background-color: #EDEDED;
+}
+
+.option-item:hover {
+    background-color: #5a5b6a;
+}
+
+.button-container {
+    display: flex;
+    justify-content: space-between;
+    max-width: 300px;
+    height: 50px;
+    margin: 20px auto; 
+}
+
+.clear-btn, .apply-btn {
+    width: 45%; 
+    padding: 10px 0;
+}
+
+.clear-btn {
+    background-color: #EDEDED !important;
+    color: #5a5b6a !important;
+    border: none !important;
+}
+
+.apply-btn {
+    background-color: #EC7171 !important; 
+    color: #444554; 
+    border: none;
+}
+
+.clear-btn:hover, .apply-btn:hover {
+    opacity: 0.9;
+}
+
+.statEntry {
+    font-size: 1.5em;
+}
+.icon {
+    font-size: 4rem;
+    color: #EDEDED;
+}
