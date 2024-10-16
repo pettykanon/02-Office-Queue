@@ -1,6 +1,4 @@
 import express from "express";
-//const Ticket = require('../models/Ticket');
-//const express = require('express');
 import TicketDao from '../dao/ticketDao.js';
 import ServiceDao from '../dao/serviceDao.js';
 
@@ -100,6 +98,42 @@ router.put('/:counterId', async (req, res) => {
   } catch (error) {
     console.error('Error fetching ticket:', error.message);
     return res.status(500).json({ error: 'Internal server error' });
+  }});
+  
+//GET /api/tickets/service/:serviceId
+
+router.get('/service/:serviceId', async (req, res) => {
+  const { serviceId } = req.params;
+  try {
+    const tickets = await TicketDao.getTicketsByServiceId(serviceId);
+    res.status(200).json(tickets);
+  } catch (error) {
+    console.error('Error fetching tickets:', error.message);
+    res.status(500).json({ error: 'Internal server error' });
+  }
+});
+
+//GET /api/tickets/counter/:counterId/:month/status/:statusId
+router.post('/stats/service', async (req, res) => {
+  const { start, end } = req.body;
+  try {
+    const customers = await TicketDao.getServedCustomerByServiceType(start, end);
+    res.status(200).json(customers);
+  } catch (error) {
+    console.error('Error fetching customers:', error.message);
+    res.status(500).json({ error: 'Internal server error' });
+  }
+});
+
+//PUT /api/tickets/status/:ticketId
+router.post('/stats/counter', async (req, res) => {
+  const { start, end } = req.body;
+  try {    
+    const customers = await TicketDao.getServedCustomerByCounter(start, end);
+    res.status(200).json(customers);
+  } catch (error) {
+    console.error('Error fetching customers:', error.message);
+    res.status(500).json({ error: 'Internal server error' });
   }
 });
 

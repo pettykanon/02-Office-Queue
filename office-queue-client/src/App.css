@@ -317,3 +317,169 @@
 .cc-serving-card .transparent-table td {
     color: #1E1E1E !important;
 }
+/* See Stats CSS */
+.filter-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #444554;
+    border-radius: 22px;
+    max-width: 300px;
+    margin: 20px auto;
+    border: 2px solid #EDEDED;
+}
+
+.filter-item {
+    flex: 1;
+    padding: 10px 20px;
+    cursor: pointer;
+    color: #EDEDED;
+    border-top-left-radius: 20px;
+    border-bottom-left-radius: 20px;
+    background-color: #444554;
+    border-right: 2px solid #EDEDED;
+    text-align: center;
+    transition: color 0.3s ease, background-color 0.3s ease;
+}
+
+.filter-month {
+    flex: 1;
+    padding: 10px 20px;
+    cursor: pointer;
+    color: #EDEDED;
+    border-top-right-radius: 20px;
+    border-bottom-right-radius: 20px;
+    background-color: #444554;
+    border-right: 2px solid #EDEDED;
+    text-align: center;
+    transition: color 0.3s ease, background-color 0.3s ease;
+}
+
+.filter-week {
+    flex: 1;
+    padding: 10px 20px;
+    cursor: pointer;
+    color: #EDEDED;
+    background-color: #444554;
+    border-right: 2px solid #EDEDED;
+    text-align: center;
+    transition: color 0.3s ease, background-color 0.3s ease;
+}
+
+.filter-month {
+    border-right: none;
+}
+
+.filter-item.active, .filter-month.active, .filter-week.active {
+    color: #444554;
+    background-color: #EDEDED;
+}
+
+.filter-item:hover, .filter-month:hover, .filter-week:hover {
+    background-color: #5a5b6a;
+}
+.select-day {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #444554;
+    border-radius: 22px;
+    max-width: 300px;
+    margin: 20px auto;
+    padding: 10px 20px;
+    border: 2px solid #EDEDED;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.select-day:hover {
+    background-color: #5a5b6a;
+}
+
+.select-day.disabled {
+    background-color: #666677; 
+    cursor: not-allowed; 
+}
+
+.select-day.disabled:hover {
+    background-color: #666677;
+}
+
+.option-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #444554;
+    border-radius: 22px;
+    max-width: 300px;
+    margin: 20px auto;
+    border: 2px solid #EDEDED;
+}
+
+.option-item {
+    flex: 1;
+    padding: 10px 20px;
+    cursor: pointer;
+    color: #EDEDED;
+    background-color: #444554;
+    text-align: center;
+    border-right: 2px solid #EDEDED;
+    border-top-left-radius: 20px;
+    border-bottom-left-radius: 20px;
+    border-bottom-right-radius: 20px;
+    border-top-right-radius: 20px;
+    transition: color 0.3s ease, background-color 0.3s ease;
+}
+
+.option-item:first-child {
+    border-top-right-radius: 0px;
+    border-bottom-right-radius: 0px;
+
+}
+
+.option-item:last-child {
+    border-top-left-radius: 0px;
+    border-bottom-left-radius: 0px;
+}
+
+.option-item.active {
+    color: #444554;
+    background-color: #EDEDED;
+}
+
+.option-item:hover {
+    background-color: #5a5b6a;
+}
+
+.button-container {
+    display: flex;
+    justify-content: space-between;
+    max-width: 300px;
+    height: 50px;
+    margin: 20px auto; 
+}
+
+.clear-btn, .apply-btn {
+    width: 45%; 
+    padding: 10px 0;
+}
+
+.clear-btn {
+    background-color: #EDEDED !important;
+    color: #5a5b6a !important;
+    border: none !important;
+}
+
+.apply-btn {
+    background-color: #EC7171 !important; 
+    color: #444554; 
+    border: none;
+}
+
+.clear-btn:hover, .apply-btn:hover {
+    opacity: 0.9;
+}
+
+.statEntry {
+    font-size: 1.5em;
+}

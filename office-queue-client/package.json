@@ -10,9 +10,14 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@emotion/react": "^11.13.3",
+    "@emotion/styled": "^11.13.0",
+    "@mui/material": "^6.1.4",
+    "@mui/x-date-pickers": "^7.20.0",
     "bootstrap": "^5.3.3",
     "bootstrap-icons": "^1.11.3",
     "datejs": "^1.0.0-rc3",
+    "dayjs": "^1.11.13",
     "office-queue-client": "file:",
     "react": "^18.3.1",
     "react-bootstrap": "^2.10.5",
