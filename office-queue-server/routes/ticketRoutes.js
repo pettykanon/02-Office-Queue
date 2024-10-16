@@ -26,7 +26,7 @@ router.post('/', async (req, res) => {
   try {
     await ServiceDao.verifyServiceType(serviceId);
 
-    const serviceLength = await TicketDao.getQueueLength(serviceId)
+    const serviceLength = await TicketDao.getQueueLengthWaiting(serviceId)
     const serviceTime = await ServiceDao.getTimeService(serviceId)
     const possibleCounters = await ServiceDao.getCounterServices(serviceId)
     
@@ -99,7 +99,7 @@ router.put('/:counterId', async (req, res) => {
     console.error('Error fetching ticket:', error.message);
     return res.status(500).json({ error: 'Internal server error' });
   }});
-  
+
 //GET /api/tickets/service/:serviceId
 
 router.get('/service/:serviceId', async (req, res) => {

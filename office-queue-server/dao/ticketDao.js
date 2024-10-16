@@ -105,6 +105,22 @@ function getQueueLength(serviceId) {
 
 }
 
+function getQueueLengthWaiting(serviceId) {
+  return new Promise((resolve, reject) => {
+//statusId = 1 means that the ticket's status is "waiting" and should be added to the queue lenght
+    const query = `SELECT COUNT(*) FROM ticket WHERE serviceId = ? AND statusId = 1`;
+    const params = [serviceId];
+
+    db.get(query, params, (err, row) => {
+      if (err) {
+        return reject(err);
+      }
+      resolve(row['COUNT(*)']);
+    });
+  });
+
+}
+
 function setCounterTicket(code, counterId) {
   return new Promise((resolve, reject) => {
 //statusId = 1 means that the ticket's status is "waiting" and should be added to the queue lenght
@@ -194,7 +210,8 @@ const TicketDao = {
   setCounterTicket,
   getTicketsByServiceId,
   getServedCustomerByServiceType,
-  getServedCustomerByCounter
+  getServedCustomerByCounter,
+  getQueueLengthWaiting,
 
 };
 

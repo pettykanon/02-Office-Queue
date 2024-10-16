@@ -2,7 +2,8 @@ import { useState } from "react";
 import { ChooseService, YourTicket } from "./GetTicket"
 import { SeeStats } from "./SeeStats";
 import { NextCustomer, ChooseCounter } from "./NextCustomer"
-import { Routes , Route} from "react-router-dom";
+import { Routes , Route, Link} from "react-router-dom";
+import { Row } from "react-bootstrap";
 import {CallCustomer} from "./CallCustomer";
 import './App.css'
 
@@ -12,6 +13,23 @@ function App() {
   return (
     <>
       <Routes>
+
+        <Route path="/" element={<>
+        <Row>
+          <Link to="getticket"> Get Ticket</Link>
+        </Row>
+        <Row>
+        <Link to="nextcustomer">Next Customer</Link>
+        </Row>
+        <Row>
+        <Link to="CallCustomer">Call Customer</Link>
+        </Row>
+        <Row>
+        <Link to="stats">Stats</Link>
+        </Row>
+          </>
+        }>
+        </Route>
 
         <Route path='/getticket' element={
           <ChooseService></ChooseService>
