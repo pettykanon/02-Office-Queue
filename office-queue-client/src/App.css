@@ -222,3 +222,98 @@
     border-radius: 25px !important;
     border-color: #444554 !important;
 }
+
+/*------ Call Customer--------*/
+/* cc stands for call customer */
+.cc-large-text {
+    font-size: 30px;
+    font-weight: bold;
+    text-align: center;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    color: inherit;
+}
+
+.cc-queue-length-card {
+    width: 350px;
+    height: 600px;
+    padding: 10px;
+    color: #EDEDED;
+    background-color: #444554;
+    border: none;
+    border-radius: 50px;
+}
+.cc-waiting-card {
+    width: 350px;
+    height: 600px;
+    padding: 10px;
+    color: #EDEDED;
+    background-color: #444554;
+    border: none;
+    border-radius: 50px;
+}
+.cc-serving-card {
+    width: 350px;
+    height: 600px;
+    padding: 10px;
+    color: #1E1E1E;
+    background-color: #8EE789;
+    border: none;
+    border-radius: 50px;
+}
+
+.transparent-table {
+    text-align: center;
+    background-color: transparent;
+    overflow: hidden;
+}
+  
+.transparent-table th,
+.transparent-table td {
+    font-size: 20px !important;
+    font-weight: bold;
+    background-color: transparent !important;
+    border: none;
+    padding: 10px;
+}
+
+.cc-queue-length-card .transparent-table th,
+.cc-queue-length-card .transparent-table td{
+    color: #EDEDED !important;
+}
+.cc-queue-length-card .transparent-table td:nth-child(2) {
+    color: #EC7171 !important;
+}
+
+.cc-waiting-card .transparent-table th,
+.cc-waiting-card .transparent-table td {
+    border: 1px solid #EDEDED;
+    color: #EDEDED !important;
+}
+.cc-waiting-card .transparent-table th,
+.cc-waiting-card .transparent-table td {
+    border: 1px solid white;
+    padding: 10px;
+}
+.cc-waiting-card .transparent-table th:first-child,
+.cc-waiting-card .transparent-table td:first-child {
+    border-left: none; /* Remove left border from the first column */
+}
+.cc-waiting-card .transparent-table th:last-child,
+.cc-waiting-card .transparent-table td:last-child {
+    border-right: none; /* Remove right border from the last column */
+}
+.cc-waiting-card .transparent-table tr:first-child th,
+.cc-waiting-card .transparent-table tr:first-child td {
+    border-top: none; /* Remove top border from the first row */
+}
+.cc-waiting-card .transparent-table tr:last-child th,
+.cc-waiting-card .transparent-table tr:last-child td {
+    border-bottom: none; /* Remove bottom border from the last row */
+}
+
+
+.cc-serving-card .transparent-table th,
+.cc-serving-card .transparent-table td {
+    color: #1E1E1E !important;
+}

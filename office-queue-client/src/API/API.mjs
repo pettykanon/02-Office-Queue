@@ -126,6 +126,21 @@ const newHistory = async (counterId, code, time) =>{
     }
 }
 
-const API ={newTicket,getTicket, getServices,getServicesCounter, getCounters, nextCustomer, newHistory}
+const getQueues = async (ticketId) => {
+    const response = await fetch(`${SERVER_URL}/api/callCustomer/queues`);
+    if (response.ok) {
+      const queues = await response.json();
+      console.log(queues);
+      return queues;
+    } else {
+      const errDetail = await response.json();
+      if (errDetail.error) throw errDetail.error;
+      if (errDetail.message) throw errDetail.message;
+      throw "Something went wrong";
+    }
+  };
+  
+
+const API ={newTicket,getTicket, getServices,getServicesCounter, getCounters, nextCustomer, newHistory, getQueues}
 
 export default API;

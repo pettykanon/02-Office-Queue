@@ -7,12 +7,14 @@ import ticketsRouter from "./routes/ticketRoutes.js"
 import nextCustomerRoutes from "./routes/nextCustomerRoutes.js";
 import counterRoutes from "./routes/counterRoutes.js"
 
+import callCustomerRoutes from "./routes/callCustomerRoutes.mjs";
+
 //--- Middlewares
 const app = express();
 app.use(morgan("dev"));
 app.use(express.json());
 
- //--- CORS
+//--- CORS
 const corsOptions = {
   origin: "http://localhost:5173",
   optionsSuccessStatus: 200,
@@ -24,6 +26,11 @@ app.use('/api/tickets', ticketsRouter);
 app.use('/api/services', serviceRoutes);
 app.use('/api/history', nextCustomerRoutes);
 app.use('/api/counters', counterRoutes);
+app.use("/api/callCustomer", callCustomerRoutes);
+
+//--- DAOs
+import TicketDao from "./dao/dao-ticket.mjs";
+const ticketDao = new TicketDao();
 
 //--- Activate the server
 const PORT = 3000;
