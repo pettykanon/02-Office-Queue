@@ -11,7 +11,6 @@ import {SettingCounters} from "./ConfigCounters Components/SettingCounters.jsx";
 import {SetUpCounter} from "./ConfigCounters Components/SetUpCounter.jsx";
 
 function App() {
-    const [count, setCount] = useState(0);
 
   return (
     <>
@@ -29,6 +28,9 @@ function App() {
         </Row>
         <Row>
         <Link to="stats">Stats</Link>
+        </Row>
+        <Row>
+        <Link to="configcounters">Config Counters</Link>
         </Row>
           </>
         }>
@@ -57,25 +59,25 @@ function App() {
 
         <Route path="/CallCustomer" element={<CallCustomer />} />
 
-                <Route path='/nextcustomer' element={
-                    <ChooseCounter></ChooseCounter>
-                }/>
+        <Route path='/nextcustomer' element={
+            <ChooseCounter></ChooseCounter>
+        }/>
 
-                <Route path='/nextcustomer/:counter' element={
-                    <NextCustomer></NextCustomer>
-                }/>
+        <Route path='/nextcustomer/:counter' element={
+            <NextCustomer></NextCustomer>
+        }/>
 
-                <Route path='/configcounters' element={
-                    <ConfigCounters></ConfigCounters>
-                }/>
+        <Route path='/configcounters' element={
+            <ConfigCounters></ConfigCounters>
+        }/>
 
-                <Route path='/settingcounters' element={
-                    <SettingCounters></SettingCounters>
-                }/>
+        <Route path='/settingcounters' element={
+            <SettingCounters></SettingCounters>
+        }/>
 
-                <Route path='/settingcounters/:counterId' element={
-                    <SetUpCounter></SetUpCounter>
-                }/>
+        <Route path='/settingcounters/:counterId' element={
+            <SetUpCounter></SetUpCounter>
+        }/>
 
             </Routes>
         </>
