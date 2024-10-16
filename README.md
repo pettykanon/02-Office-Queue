@@ -2,31 +2,35 @@
 
 ## Database
 
-### Ticket
-- ID (primary)
-- Ticket Code
-- ServicetypeID (foreign key)
-- Estimated waiting time
-- Status
+### Counter
+
+- Id (primary key)
 
 ### Service
-- ServicetypeID (primary)
-- ServiceName
-- ServiceTime
 
-### Counter
-- CounterId (primary)
+- Id (primary key)
+- Name
+- AverageTime (in minutes)
+
+### Ticket
+
+- Id (primary key)
+- Code
+- ServiceId (foreign key)
+- Status (stricted to: waiting, serving, done, expired)
 
 ### DailySetting
-- CounterId  (foreign key)
-- ServicetypeID  (foreign key)
+
+- ID (primary key)
+- CounterId (foreign key)
+- ServiceId (foreign key)
 
 ### History
-- Counter Id (foreign key)
-- ServiceType 
-- Date
-- SpentTime
 
+- ID (primary key)
+- CounterId (foreign key)
+- ServiceId (foreign key)
+- Date
 
 ## API Stories
 
@@ -60,7 +64,7 @@
 
 ### Get Estimated Time
 
-- GET estimated time with formula 
+- GET estimated time with formula
 
 ### Notify Customer Served
 
