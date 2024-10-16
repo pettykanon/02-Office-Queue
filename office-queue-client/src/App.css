@@ -6,8 +6,17 @@
 .bg-w {
     background-color: #EDEDED;
 }
+
 .bg-r {
     background-color: #EC7171;
+}
+
+.text-my_red {
+    color: #EC7171;
+}
+
+.border-darker-d {
+    border: 2px solid #444554;
 }
 
 .rounded {
