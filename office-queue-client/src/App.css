@@ -1,3 +1,15 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+* {
+    font-family: 'Inter', sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
 /*------ General--------*/
 .bg-d {
     background-color: #444554;
@@ -21,6 +33,10 @@
 
 .rounded {
     border-radius: 30px;
+}
+
+.rounded-a_lot {
+    border-radius: 50px;
 }
 
 .custom-navbar {
@@ -491,4 +507,8 @@
 
 .statEntry {
     font-size: 1.5em;
+}
+.icon {
+    font-size: 4rem;
+    color: #EDEDED;
 }
