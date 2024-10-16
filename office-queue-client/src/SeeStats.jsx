@@ -37,6 +37,7 @@ function SeeStats() {
                     <Link to='/nextcustomer'><Button className='back-btn'><i className="bi bi-arrow-left-circle" style={{ fontSize: "50px" }}></i></Button></Link>
                 </Navbar.Brand>
                 <Navbar.Text className='navbar-text-custom' >
+                STATS
                 </Navbar.Text>
             </Container>
         </Navbar>
