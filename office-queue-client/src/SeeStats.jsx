@@ -1,12 +1,12 @@
-import {Container, Row, Col, Button} from 'react-bootstrap';
-import {Navbar} from 'react-bootstrap';
-import {useState, useEffect} from 'react';
-import {Link} from 'react-router-dom';
+import { Container, Row, Col, Button } from 'react-bootstrap';
+import { Navbar } from 'react-bootstrap';
+import { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 
 import API from './API/API.mjs';
-import {DatePicker} from "@mui/x-date-pickers";
-import {AdapterDayjs} from '@mui/x-date-pickers/AdapterDayjs';
-import {LocalizationProvider} from '@mui/x-date-pickers/LocalizationProvider';
+import { DatePicker } from "@mui/x-date-pickers";
+import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
+import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import * as dayjs from 'dayjs'
 
 
@@ -21,24 +21,7 @@ function SeeStats() {
         ["month", ["month", "year"]]
     ]);
 
-    useEffect(() => {
-        console.log("Selected date:", selectedDate);}
-    , [selectedDate])
-
-    const [data, setData] = useState([
-        {
-            counterId: 1, stats: [
-                {customersNumber: 14, serviceName: "Servizio1"},
-                {customersNumber: 14, serviceName: "Servizio2"}
-            ]
-        },
-        {
-            counterId: 2, stats: [
-                {customersNumber: 14, serviceName: "Servizio1"},
-                {customersNumber: 14, serviceName: "Servizio2"}
-            ]
-        }
-    ])
+    const [data, setData] = useState([])
 
     const handleFilterClick = (filter) => {
         setSelectedFilter(filter);
@@ -55,18 +38,51 @@ function SeeStats() {
         console.log("Filters cleared");
     };
 
-    const handleApply = () => {
+    const handleApply = async () => {
         // Applica i filtri
-        console.log("Filters applied:", selectedFilter, selectedOption);
+        try {
+            if (selectedOption === "service" && selectedDate[0]) {
+                const customersServed = await API.getServedCustomerByServiceType(selectedDate[0].format("YYYY-MM-DD"), selectedDate[1].format("YYYY-MM-DD"));
+                setData(customersServed);
+            }
+            else if (selectedOption === "counter" && selectedDate[0]) {
+                const customersServed = await API.getServedCustomerByCounter(selectedDate[0].format("YYYY-MM-DD"), selectedDate[1].format("YYYY-MM-DD"));
+                const transformedData = customersServed.reduce((acc, current) => {
+
+                    let existingCounter = acc.find(item => item.counterId === current.counterId);
+
+                    if (existingCounter) {
+                        existingCounter.stats.push({
+                            customersNumber: current.customersCount,
+                            serviceName: current.name
+                        });
+                    } else {
+                        acc.push({
+                            counterId: current.counterId,
+                            stats: [
+                                {
+                                    customersNumber: current.customersCount,
+                                    serviceName: current.name
+                                }
+                            ]
+                        });
+                    }
+                    return acc;
+                }, []);
+                setData(transformedData);
+            }
+        }
+        catch (err) {
+            console.log(err);
+        }
     };
 
     return (
         <>
-            <div className="d-flex flex-column vh-100 vw-100">
                 <Navbar className='bg-d custom-navbar'>
                     <Container>
                         <Navbar.Brand>
-                            <Link to='/nextcustomer'><Button className='back-btn'><i className="bi bi-arrow-left-circle" style={{fontSize: "50px"}}></i></Button></Link>
+                            <Link to='/nextcustomer'><Button className='back-btn'><i className="bi bi-arrow-left-circle" style={{ fontSize: "50px" }}></i></Button></Link>
                         </Navbar.Brand>
                         <Navbar.Text className='navbar-text-custom'>
                             STATS
@@ -175,7 +191,7 @@ function SeeStats() {
                             <div className="flex flex-column w-100 h-100 border border-2 border-black rounded">
                                 <div className="d-flex flex-row bg-d w-100 text-white justify-content-center gap-2 p-3">
                                     <p className="m-0 p-0 w-auto">
-                                        {"12/12/12"}
+                                        {selectedDate[0] ? (selectedDate[0].format("YYYY-MM-DD") + " : " + selectedDate[1].format("YYYY-MM-DD")) : ""}
                                     </p>
                                     <p className="m-0 p-0 w-auto text-white-50">
                                         {selectedOption ? (selectedOption == "service" ? "Customers served for service" : "Customers served for counter") : "Not Selected"}
@@ -183,24 +199,41 @@ function SeeStats() {
                                 </div>
                                 <div className="p-3">
                                     {
-                                        data.map(
-                                            counter => {
-                                                return <CounterStatLine key={counter.counterId} counterId={counter.counterId}
-                                                                        stats={counter.stats}></CounterStatLine>
-                                            }
+                                        selectedOption === "counter" ? (
+                                            data.map(
+                                                counter => {
+                                                    return <CounterStatLine key={counter.counterId} counterId={counter.counterId}
+                                                        stats={counter.stats}></CounterStatLine>
+                                                })
                                         )
+                                            : (
+                                                data.map(
+                                                    counter => {
+                                                        return <p className="statEntry" key={counter.name}>
+                                                            {"Service " + counter.name + ": "}
+                                                            {
+                                                                <>
+                                                                    <span className="">{counter.customersCount}</span>
+                                                                   
+                                                                </>
+
+
+
+                                                            }
+                                                        </p>
+                                                    })
+                                            )
                                     }
                                 </div>
                             </div>
                         </Col>
                     </Row>
                 </Container>
-            </div>
         </>
     )
 }
 
-function CounterStatLine({counterId, stats}) {
+function CounterStatLine({ counterId, stats }) {
     return (
         <p className="statEntry">
             {"Counter " + counterId + ": "}
@@ -220,4 +253,5 @@ function CounterStatLine({counterId, stats}) {
     )
 }
 
-export {SeeStats}
+
+export { SeeStats }

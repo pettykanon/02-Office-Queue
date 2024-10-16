@@ -99,26 +99,25 @@ router.get('/service/:serviceId', async (req, res) => {
 });
 
 //GET /api/tickets/counter/:counterId/:month/status/:statusId
-router.get('/counter/:counterId/:month/status/:statusId', async (req, res) => {
-  const { counterId, month, statusId } = req.params;
+router.post('/stats/service', async (req, res) => {
+  const { start, end } = req.body;
   try {
-    const tickets = await TicketDao.getTicketsByCounterAndStatus(counterId, month, statusId);
-    res.status(200).json(tickets);
+    const customers = await TicketDao.getServedCustomerByServiceType(start, end);
+    res.status(200).json(customers);
   } catch (error) {
-    console.error('Error fetching tickets:', error.message);
+    console.error('Error fetching customers:', error.message);
     res.status(500).json({ error: 'Internal server error' });
   }
 });
 
 //PUT /api/tickets/status/:ticketId
-router.put('/status/:ticketId', async (req, res) => {
-  const { ticketId } = req.params;
+router.post('/stats/counter', async (req, res) => {
+  const { start, end } = req.body;
   try {    
-    const ticket = await TicketDao.getTicketById(ticketId);
-    await TicketDao.updateTicketStatus(ticketId);
-    res.status(200).json({ message: `Ticket status of ${ticketId} has been updated successfully to ${ticket.statusId+1}` });
+    const customers = await TicketDao.getServedCustomerByCounter(start, end);
+    res.status(200).json(customers);
   } catch (error) {
-    console.error('Error updating ticket status:', error.message);
+    console.error('Error fetching customers:', error.message);
     res.status(500).json({ error: 'Internal server error' });
   }
 });
