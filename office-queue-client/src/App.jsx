@@ -1,7 +1,8 @@
 import { useState } from "react";
-import {ChooseService,YourTicket} from "./GetTicket"
+import { ChooseService, YourTicket } from "./GetTicket"
+import { SeeStats } from "./SeeStats";
 import { NextCustomer, ChooseCounter } from "./NextCustomer"
-import { Routes , Route} from "react-router-dom";
+import { Routes, Route } from "react-router-dom";
 import './App.css'
 
 function App() {
@@ -10,23 +11,27 @@ function App() {
   return (
     <>
       <Routes>
-      
-        <Route path= '/getticket' element={
+
+        <Route path='/getticket' element={
           <ChooseService></ChooseService>
-        }/>
+        } />
 
-        <Route path= '/getticket/:service/:id' element={
+        <Route path='/getticket/:service/:id' element={
           <YourTicket></YourTicket>
-          }/>
-          
+        } />
 
-         <Route path= '/nextcustomer' element={
+
+        <Route path='/nextcustomer' element={
           <ChooseCounter></ChooseCounter>
-        }/>
+        } />
 
-        <Route path= '/nextcustomer/:counter' element={
+        <Route path='/nextcustomer/:counter' element={
           <NextCustomer></NextCustomer>
-        }/>
+        } />
+
+        <Route path='/stats' element={
+          <SeeStats></SeeStats>
+        } />
 
       </Routes>
     </>
