@@ -344,7 +344,8 @@
 }
 
 .option-item:last-child {
-    border-right: none;
+    border-top-left-radius: 0px;
+    border-bottom-left-radius: 0px;
 }
 
 .option-item.active {
@@ -383,4 +384,8 @@
 
 .clear-btn:hover, .apply-btn:hover {
     opacity: 0.9;
+}
+
+.statEntry {
+    font-size: 1.5em;
 }
