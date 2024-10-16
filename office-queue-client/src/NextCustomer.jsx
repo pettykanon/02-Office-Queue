@@ -96,7 +96,7 @@ function NextCustomer() {
       console.log(ct);
       setCurrentTicket(ct);
 
-      setTimer(0)
+      //setTimer(0)
 
     } catch (err) {
       console.log("Errore QUI: " + err);
