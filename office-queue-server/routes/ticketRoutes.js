@@ -27,7 +27,19 @@ router.post('/', async (req, res) => {
 
   try {
     await ServiceDao.verifyServiceType(serviceId);
-    const newTicket = await TicketDao.createTicket(serviceId, 15);  
+
+    const serviceLength = await TicketDao.getQueueLength(serviceId)
+    const serviceTime = await ServiceDao.getTimeService(serviceId)
+    const possibleCounters = await ServiceDao.getCounterServices(serviceId)
+    
+    let sum = 0
+    for (let c of possibleCounters){
+      let numServices = await ServiceDao.getCounterServiceOffered(c)
+      sum += 1/numServices
+    }
+    
+    const estimatedWaitingTime = serviceTime * ((serviceLength / sum) + 1/2)
+    const newTicket = await TicketDao.createTicket(serviceId, estimatedWaitingTime);  
     res.status(201).json(newTicket);
 
   } catch (error) {

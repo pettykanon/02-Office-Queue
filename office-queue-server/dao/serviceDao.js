@@ -60,11 +60,78 @@ function getAllServices() {
   });
 }
 
+async function getTimeService(serviceId) {
+  return new Promise((resolve,reject) =>{
+    //per ogni counter serviceTime , lengthqueue, num servizi forniti, 1 se valido, 0 se non è valido
+    const query = "SELECT averageTime FROM service WHERE id = ?" 
+
+    db.get(query,[serviceId], (err,row)=>{
+      if (err) {
+        return reject(err);
+      }
+      resolve(row.averageTime)
+    });
+
+  });
+}
+
+// returns counterIds that can offer a serviceId
+async function getCounterServices(serviceId) {
+  return new Promise((resolve,reject) =>{
+    //per ogni counter serviceTime , lengthqueue, num servizi forniti, 1 se valido, 0 se non è valido
+    const query = "SELECT counterId FROM daily_setting WHERE serviceId = ?" 
+
+    db.all(query,[serviceId], (err,rows)=>{
+      if (err) {
+        return reject(err);
+      }
+      console.log(rows)
+      resolve(rows.map(e => e.counterId))
+    });
+
+  });
+}
+
+// returns number of services offerd by counterId 
+async function getCounterServiceOffered(counterId) {
+  return new Promise((resolve,reject) =>{
+    //per ogni counter serviceTime , lengthqueue, num servizi forniti, 1 se valido, 0 se non è valido
+    const query = "SELECT COUNT(*) AS count FROM daily_setting WHERE counterId = ?" 
+
+    db.get(query,[counterId], (err,row)=>{
+      if (err) {
+        return reject(err);
+      }
+      resolve(row.count)
+    });
+
+  });
+}
+
+async function getCounterServicePrivided(counterId) {
+  return new Promise((resolve,reject) =>{
+    
+    const query = "SELECT s.name FROM service AS s JOIN daily_setting AS ds ON ds.serviceId = s.id WHERE ds.counterId = ?" 
+
+    db.all(query,[counterId], (err,rows)=>{
+      if (err) {
+        return reject(err);
+      }
+      resolve(rows.map(e=> e.name))
+    });
+
+  });
+}
+
 const ServiceDao = {
   getAllServicesId,
   getServiceById,
   verifyServiceType,
-  getAllServices
+  getAllServices,
+  getTimeService,
+  getCounterServices,
+  getCounterServiceOffered,
+  getCounterServicePrivided
 };
 
 export default ServiceDao;

@@ -1,14 +1,16 @@
 import { Container, Row, Col, Button } from 'react-bootstrap';
 import { Navbar } from 'react-bootstrap';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { useParams } from 'react-router-dom';
+
+import { useParams, useNavigate } from 'react-router-dom';
 import API from './API/API.mjs';
 
 function ChooseCounter() {
   
-  const [counters, setCounters] = useState()
+  const [counters, setCounters] = useState([])
 
+  const navigate = useNavigate()
   // get all counters
   useEffect(()=>{
     const getCounters = async() =>{
@@ -23,6 +25,10 @@ function ChooseCounter() {
     getCounters();
 },[])
 
+  const handleClickCounter = (s) =>{
+    navigate(`${s}`,{relative:"path"})
+  }
+
   return (
       <>
           <Navbar className='bg-d custom-navbar'>
@@ -35,7 +41,7 @@ function ChooseCounter() {
           <Container fluid>
               <div className="service-container">
                   {counters.map((s) => (
-                      <CounterCard s={s} key={s}/>
+                      <CounterCard s={s} key={s} handleClickCounter={handleClickCounter}/>
                   ))}
               </div>
           </Container>
@@ -46,23 +52,31 @@ function ChooseCounter() {
 function CounterCard(props) {
   return (
       <div className="service-card">
-          <Link to={props.s}>
-          <Button className="service-button">
-              <Row>
-                  <Col className='btn-font-1'>{props.s}</Col>
-              </Row>
-          </Button>
-          </Link>
+            <Button className="service-button" onClick={()=>props.handleClickCounter(props.s)}>
+                <Row>
+                    <Col className='btn-font-1'>{props.s}</Col>
+                </Row>
+            </Button>
       </div>
   );
 }
 
 function NextCustomer() {
   const params = useParams()
-  const [servicesProvided, setServicesProvided] = useState()
-  const [currentTicket, setCurrentTicket] = useState(0)
+  const [servicesProvided, setServicesProvided] = useState([])
+  const [currentTicket, setCurrentTicket] = useState({code: "--"})
+  const [timer, setTimer] =  useState(0)
 
   //Get service provided of counter#
+
+  useEffect(()=>{
+
+    const tid = setTimeout(() => {
+        setTimer(t => t+1 )
+    }, 60000);
+
+    return () => clearTimeout(tid);
+  },[timer])
 
   useEffect(()=>{
     const getServicesCounters = async() =>{
@@ -79,20 +93,26 @@ function NextCustomer() {
 
   //Get next ticket served
 
-  const handleNextClient = async () =>{
-      try{
-        const ct = API.nextCustomer(params.counter,currentTicket)
-        setCurrentTicket(ct)
-      }catch{
-        console.log(err);
+  const handleNextClient = async () => {
+    try {
+      if (currentTicket.code != '--') {
+        console.log("Ticket: " + currentTicket.code);
+        await API.newHistory(params.counter, currentTicket.code, timer)
       }
+      const ct = await API.nextCustomer(params.counter, currentTicket.code)
+      console.log(ct);
+      setCurrentTicket(ct)
+      setTimer(0)
+    } catch (err) {
+      console.log("Errore QUI: " + err);
+    }
   }
 
   return (<>
     <Navbar className='bg-d custom-navbar'>
       <Container>
         <Navbar.Brand>
-            <Link to='/nextcustomer'><Button className='back-btn'><i class="bi bi-arrow-left-circle" style={{fontSize:"50px"}}></i></Button></Link>
+            <Link to='/nextcustomer'><Button className='back-btn'><i className="bi bi-arrow-left-circle" style={{fontSize:"50px"}}></i></Button></Link>
          </Navbar.Brand>
         <Navbar.Text className='navbar-text-custom' >
           {params.counter}
@@ -105,14 +125,14 @@ function NextCustomer() {
           <div className='rect-left bg-d mx-5 my-5'>
             <h3 className='rect-title'>Services provided:</h3>
             <ol className="list-custom">
-              {servicesProvided.map((e)=><li className='my-2'>{e}</li>)}
+              {servicesProvided.map((e)=><li className='my-2' key={e}>{e}</li>)}
             </ol>
           </div>
         </Col>
         <Col md={7}>
             <div className="rect-right bg-green mx-5 my-5">
               <p className="serving-text">Serving Client:</p>
-              <p className='serving-client'>{currentTicket}</p>
+              <p className='serving-client'>{currentTicket.code}</p>
             </div>
             <div className="button">
             <Button className="call-next-btn mt-3" onClick={handleNextClient}>Call Next</Button>

@@ -91,7 +91,7 @@ const getServicesCounter = async (counterId) =>{
 
 
 const nextCustomer = async (counterId, currentCode) =>{
-    const response = await fetch(`${SERVER_URL}/api/${counterId}/${currentCode}`)
+    const response = await fetch(`${SERVER_URL}/api/counters/${counterId}/${currentCode}`)
     if(response.ok) {
         const currentcode = await response.json();
         return currentcode;
@@ -106,11 +106,11 @@ const nextCustomer = async (counterId, currentCode) =>{
     }
 }
 
-const newHistory = async (counterId, serviceName, time) =>{
-    const response = await fetch(`${SERVER_URL}/api/ticket`,{
+const newHistory = async (counterId, code, time) =>{
+    const response = await fetch(`${SERVER_URL}/api/history`,{
         method: 'POST',
         headers: {'Content-Type': 'application/json'}, 
-        body: JSON.stringify({counterId: counterId, serviceName:serviceName, time:time})
+        body: JSON.stringify({counterId: counterId, ticketCode: code, time:time})
       })
     if(response.ok) {
         const ticketid = await response.json();
