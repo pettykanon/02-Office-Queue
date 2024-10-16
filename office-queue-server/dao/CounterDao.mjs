@@ -64,5 +64,25 @@ export default class Counterdao {
                 });
             });
         }
+
+        this.setService = (counterID, servicesID) => {
+            return new Promise((resolve, Object) => {
+                const query = 'INSERT INTO daily_setting (counterId, serviceId) VALUES (?, ?)';
+                db.run(query, [counterID, servicesID], (error, rows) => {
+                    if (error) throw error;
+                    resolve(rows);
+                });
+            });
+        }
+        
+        this.removeService = (counterID, serviceID) =>  {
+            return new Promise((resolve, Object) => {
+                const query = 'DELETE FROM daily_setting WHERE counterId = ? AND serviceId = ?';
+                db.run(query, [counterID, serviceID], (error, rows) => {
+                    if (error) throw error;
+                    resolve(rows);
+                });
+            });
+        }
     }
 }

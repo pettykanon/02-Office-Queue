@@ -2,13 +2,16 @@ import { useState } from "react";
 import { ChooseService, YourTicket } from "./GetTicket"
 import { SeeStats } from "./SeeStats";
 import { NextCustomer, ChooseCounter } from "./NextCustomer"
+import {ConfigCounters} from "./ConfigCounters Components/ConfigCounters.jsx"
 import { Routes , Route, Link} from "react-router-dom";
 import { Row } from "react-bootstrap";
 import {CallCustomer} from "./CallCustomer";
 import './App.css'
+import {SettingCounters} from "./ConfigCounters Components/SettingCounters.jsx";
+import {SetUpCounter} from "./ConfigCounters Components/SetUpCounter.jsx";
 
 function App() {
-  const [count, setCount] = useState(0);
+    const [count, setCount] = useState(0);
 
   return (
     <>
@@ -54,9 +57,29 @@ function App() {
 
         <Route path="/CallCustomer" element={<CallCustomer />} />
 
-      </Routes>
-    </>
-  );
+                <Route path='/nextcustomer' element={
+                    <ChooseCounter></ChooseCounter>
+                }/>
+
+                <Route path='/nextcustomer/:counter' element={
+                    <NextCustomer></NextCustomer>
+                }/>
+
+                <Route path='/configcounters' element={
+                    <ConfigCounters></ConfigCounters>
+                }/>
+
+                <Route path='/settingcounters' element={
+                    <SettingCounters></SettingCounters>
+                }/>
+
+                <Route path='/settingcounters/:counterId' element={
+                    <SetUpCounter></SetUpCounter>
+                }/>
+
+            </Routes>
+        </>
+    );
 }
 
 export default App;

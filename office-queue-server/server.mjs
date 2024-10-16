@@ -6,6 +6,7 @@ import serviceRoutes from "./routes/serviceRoutes.js"
 import ticketsRouter from "./routes/ticketRoutes.js"
 import nextCustomerRoutes from "./routes/nextCustomerRoutes.js";
 import counterRoutes from "./routes/counterRoutes.js"
+import ConfigCountersRoutes from "./routes/ConfigureCountersRoutes.js";
 
 import callCustomerRoutes from "./routes/callCustomerRoutes.mjs";
 
@@ -27,6 +28,7 @@ app.use('/api/services', serviceRoutes);
 app.use('/api/history', nextCustomerRoutes);
 app.use('/api/counters', counterRoutes);
 app.use("/api/callCustomer", callCustomerRoutes);
+app.use('/api/settingcounters', ConfigCountersRoutes);
 
 //--- Activate the server
 const PORT = 3000;
