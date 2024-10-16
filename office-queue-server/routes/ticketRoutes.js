@@ -1,6 +1,4 @@
 import express from "express";
-//const Ticket = require('../models/Ticket');
-//const express = require('express');
 import TicketDao from '../dao/ticketDao.js';
 import ServiceDao from '../dao/serviceDao.js';
 
@@ -85,6 +83,43 @@ router.get('/:ticketId', async (req, res) => {
   } catch (error) {
     console.error('Error fetching ticket:', error.message);
     return res.status(500).json({ error: 'Internal server error' });
+  }
+});
+
+//GET /api/tickets/service/:serviceId
+router.get('/service/:serviceId', async (req, res) => {
+  const { serviceId } = req.params;
+  try {
+    const tickets = await TicketDao.getTicketsByServiceId(serviceId);
+    res.status(200).json(tickets);
+  } catch (error) {
+    console.error('Error fetching tickets:', error.message);
+    res.status(500).json({ error: 'Internal server error' });
+  }
+});
+
+//GET /api/tickets/counter/:counterId/:month/status/:statusId
+router.get('/counter/:counterId/:month/status/:statusId', async (req, res) => {
+  const { counterId, month, statusId } = req.params;
+  try {
+    const tickets = await TicketDao.getTicketsByCounterAndStatus(counterId, month, statusId);
+    res.status(200).json(tickets);
+  } catch (error) {
+    console.error('Error fetching tickets:', error.message);
+    res.status(500).json({ error: 'Internal server error' });
+  }
+});
+
+//PUT /api/tickets/status/:ticketId
+router.put('/status/:ticketId', async (req, res) => {
+  const { ticketId } = req.params;
+  try {    
+    const ticket = await TicketDao.getTicketById(ticketId);
+    await TicketDao.updateTicketStatus(ticketId);
+    res.status(200).json({ message: `Ticket status of ${ticketId} has been updated successfully to ${ticket.statusId+1}` });
+  } catch (error) {
+    console.error('Error updating ticket status:', error.message);
+    res.status(500).json({ error: 'Internal server error' });
   }
 });
 

@@ -1,6 +1,7 @@
 import sqlite3 from 'sqlite3';
 import db from '../db.mjs';
 
+
 //function to get ticket by code
  function getTicketByCode(ticketCode) {
   return new Promise((resolve, reject) => {
@@ -104,12 +105,94 @@ async function generateTicketCode(serviceId) {
 
 }
 
+//function to get tickets(customers) for each service type
+function getTicketsByServiceId(serviceId) {
+  return new Promise((resolve, reject) => {
+    const query = `SELECT * FROM ticket WHERE serviceId = ?`;
+    const params = [serviceId];
+
+    db.all(query, params, (err, rows) => {
+      if (err) {
+        return reject(err);
+      }
+      resolve(rows);
+    });
+  });
+
+}
+
+//!!!Very complex function needs to be improved also checked very carefully!!!
+//function to get tickets(customers) for each counter and service type according to the statusId, 
+//this function can be used to get the served tickets (statusId = 2) for each counter within a given month 
+//(should be improved to day,week, year etc.)
+
+//to test this, use the following:
+// 1- change import db from '../db.mjs'; to import db from '../testDb.mjs' in ticketDao.js;
+// 2- go to dao-test/testTicketDao.js, uncomment testGetTicketsByServiceAndStatus();
+// 3- run the test with cd dao-test and node testTicketDao.js
+// 4- insert more data to have detailed check from insertMockData.js if needed
+export function getTicketsByServiceAndStatus(serviceId, statusId, month) {
+  return new Promise((resolve, reject) => {
+    
+    const query = `
+      SELECT 
+        h.counterId,
+        COUNT(*) AS ticketCount
+      FROM 
+        tickets t
+      LEFT JOIN 
+        history h ON t.serviceId = h.serviceId
+      WHERE 
+        t.serviceId = ? AND t.statusId = ? AND strftime('%m', h.date) = ?
+      GROUP BY 
+        h.counterId
+      ORDER BY 
+        h.counterId;
+    `;
+
+    db.all(query, [serviceId, statusId, month], (err, rows) => {
+      if (err) {
+        return reject(err);
+      }
+      resolve(rows);
+    });
+  });
+}
+
+// Function to update the statusId of a ticket by incrementing it by 1, but not exceeding 4
+//use this function to notify the customer that his/her ticket has been served (notify served customers story)
+function updateTicketStatus(ticketId) {
+  return new Promise((resolve, reject) => {
+    const query = `
+      UPDATE ticket
+      SET statusId = statusId + 1
+      WHERE id = ? AND statusId < 4 AND statusId > 0
+    `;
+
+    db.run(query, [ticketId], function(err) {
+      if (err) {
+        return reject(err);
+      }
+      if (this.changes === 0) {
+        return reject(new Error('No ticket found with the given ID or statusId is already 4'));
+      }
+      resolve({ message: 'Ticket status updated successfully', ticketId });
+    });
+  });
+}
+
+
+
+
 const TicketDao = {
   createTicket,
   getQueueLength,
   getTicketByCode,
   getTicketById,
-  generateTicketCode
+  generateTicketCode,
+  getTicketsByServiceId,
+  getTicketsByServiceAndStatus,
+  updateTicketStatus
 
 };
 

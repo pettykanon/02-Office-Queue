@@ -1,6 +1,6 @@
 
 //this is the test file for creating mock data to test the ticketDao.js file
-import TicketDao from './ticketDao.js';
+import TicketDao from '../ticketDao.js';
 
 async function createNewTicket() {
   try {
@@ -44,3 +44,22 @@ async function getTicketById(id) {
 
 //getTicketById(17);
 
+async function testGetTicketsByServiceAndStatus() {
+  try {
+    const serviceId = 1; // Example serviceId
+    const statusId = 1;  // Example statusId
+    const tickets = await TicketDao.getTicketsByServiceAndStatus(serviceId, statusId);
+    console.log('Tickets:', tickets);
+  } catch (error) {
+    console.error('Error fetching tickets:', error);
+  }
+}
+
+//testGetTicketsByServiceAndStatus();
+
+async function updateTicketStatus(ticketId) {
+  const result = await TicketDao.updateTicketStatus(ticketId);
+  console.log('Ticket status updated:', result);
+}
+
+//updateTicketStatus(17);
