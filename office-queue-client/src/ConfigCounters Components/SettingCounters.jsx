@@ -1,10 +1,24 @@
 import {Button, Container} from 'react-bootstrap';
-import {Navbar, Row, Col, Modal, Card} from 'react-bootstrap';
+import {Navbar, Row, Col} from 'react-bootstrap';
 import {useState, useEffect} from 'react';
-import {Link, useNavigate, useParams} from 'react-router-dom';
+import {useNavigate} from 'react-router-dom';
 import API from '../API/API.mjs';
 
 function SettingCounters() {
+    const [counters, setCounters] = useState([])
+
+    //get all counters
+    useEffect(() => {
+        const getCounters = async () => {
+            try {
+                const counters = await API.getCounters();
+                setCounters(counters)
+            } catch (err) {
+                console.log(err);
+            }
+        }
+        getCounters();
+    }, [])
 
     return (
         <>
@@ -20,10 +34,11 @@ function SettingCounters() {
                     <div className="d-flex flex-row w-100 h-100 justify-content-around">
                         <Container fluid>
                             <div className="service-container">
-                                <ContainerEntry name="Counter1" id={1}></ContainerEntry>
-                                <ContainerEntry name="Counter2" id={2}></ContainerEntry>
-                                <ContainerEntry name="Counter3" id={3}></ContainerEntry>
-                                <ContainerEntry name="Counter4" id={4}></ContainerEntry>
+                                {
+                                    counters.map((c) => (
+                                        <ContainerEntry name={"Counter " + c} id={c} key={c}></ContainerEntry>
+                                    ))
+                                }
                             </div>
                         </Container>
                     </div>

@@ -5,24 +5,9 @@ import {Link, useNavigate, useParams} from 'react-router-dom';
 import API from '../API/API.mjs';
 
 function ConfigCounters() {
-    const [services, setServices] = useState([])
     const [selectedService, setSelectedService] = useState();
-    const [showModal, setShowModal] = useState(false);
 
     const navigate = useNavigate()
-    //get all services
-    useEffect(() => {
-        const getServices = async () => {
-            try {
-                const serv = await API.getServices();
-                setServices(serv)
-                console.log(serv)
-            } catch (err) {
-                console.log(err);
-            }
-        }
-        getServices();
-    }, [])
 
     const handleServiceClick = (s) => {
         setSelectedService(s)
