@@ -126,6 +126,22 @@ const newHistory = async (counterId, code, time) =>{
     }
 }
 
-const API ={newTicket,getTicket, getServices,getServicesCounter, getCounters, nextCustomer, newHistory}
+const newCounterCOnfig = async (counterId, services) =>{
+    const response = await fetch(`${SERVER_URL}/api/settingcounters/${counterId}`,{
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'}, 
+        body: JSON.stringify({services: services})
+      })
+    if(!response.ok) {
+        const errDetail = await response.json();
+        if (errDetail.error)
+            throw errDetail.error
+        if (errDetail.message)
+            throw errDetail.message
+        throw "Something went wrong"
+    }
+}
+
+const API ={newTicket,getTicket, getServices,getServicesCounter, getCounters, nextCustomer, newHistory, newCounterCOnfig}
 
 export default API;
