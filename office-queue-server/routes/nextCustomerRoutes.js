@@ -14,7 +14,6 @@ router.post('/',
   [
     body("counterId").exists().withMessage("Counter ID is required"),
     body("ticketCode").exists().withMessage("Service name is required"),
-    body("time").exists().withMessage("Spent time is required")
   ],
   async (req, res, next) => { // Added next parameter for error handling
 
@@ -23,11 +22,11 @@ router.post('/',
       return res.status(400).json({ errors: errors.array() });
     }
 
-    const { counterId, ticketCode, time } = req.body;
+    const { counterId, ticketCode } = req.body;
     try {
       let service = await ServiceDao.getServiceByTicketCode(ticketCode);
       console.log(service);
-      const newHistory = new History(counterId, service.serviceTypeID, dayjs().format("YYYY-MM-DD"), time);
+      const newHistory = new History(counterId, service.serviceTypeID, dayjs().format("YYYY-MM-DD"));
       
       await NextCustomerDAO.insertHistory(newHistory);
       res.status(200).json({ message: "History recorded successfully" });

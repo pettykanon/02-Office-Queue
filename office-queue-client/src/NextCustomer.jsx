@@ -65,18 +65,8 @@ function NextCustomer() {
   const params = useParams()
   const [servicesProvided, setServicesProvided] = useState([])
   const [currentTicket, setCurrentTicket] = useState({code: "--"})
-  const [timer, setTimer] =  useState(0)
 
   //Get service provided of counter#
-
-  useEffect(()=>{
-
-    const tid = setTimeout(() => {
-        setTimer(t => t+1 )
-    }, 60000);
-
-    return () => clearTimeout(tid);
-  },[timer])
 
   useEffect(()=>{
     const getServicesCounters = async() =>{
@@ -97,7 +87,7 @@ function NextCustomer() {
     try {
       if (currentTicket.code != '--') {
         console.log("Ticket: " + currentTicket.code);
-        await API.newHistory(params.counter, currentTicket.code, timer)
+        await API.newHistory(params.counter, currentTicket.code)
       }
       const ct = await API.nextCustomer(params.counter, currentTicket.code)
       console.log(ct);

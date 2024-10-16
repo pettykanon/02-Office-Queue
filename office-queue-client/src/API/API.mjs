@@ -106,11 +106,11 @@ const nextCustomer = async (counterId, currentCode) =>{
     }
 }
 
-const newHistory = async (counterId, code, time) =>{
+const newHistory = async (counterId, code) =>{
     const response = await fetch(`${SERVER_URL}/api/history`,{
         method: 'POST',
         headers: {'Content-Type': 'application/json'}, 
-        body: JSON.stringify({counterId: counterId, ticketCode: code, time:time})
+        body: JSON.stringify({counterId: counterId, ticketCode: code})
       })
     if(response.ok) {
         const ticketid = await response.json();
