@@ -91,10 +91,10 @@ function NextCustomer() {
       }
       const ct = await API.nextCustomer(params.counter, currentTicket.code)
 
+      await API.addCounterCustomer(params.counter,ct.code)
+
       console.log(ct);
       setCurrentTicket(ct);
-
-      await API.addCounterCustomer(params.counter,currentTicket.code)
 
       setTimer(0)
 

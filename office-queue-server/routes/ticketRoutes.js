@@ -88,17 +88,14 @@ router.get('/:ticketId', async (req, res) => {
   }
 });
 
-router.get('/:counterId', async (req, res) => {
+router.put('/:counterId', async (req, res) => {
   const { counterId } = req.params;
   const { code } = req.body;
   
   try {
-    const ticket = await TicketDao.setCounterTicket(code, counterId);
+    console.log(code)
     
-    if (!ticket) {
-      return res.status(404).json({ error: 'Ticket not found' });
-    }
-
+    const ticket = await TicketDao.setCounterTicket(code, counterId);
     return res.status(200).json(ticket);
   } catch (error) {
     console.error('Error fetching ticket:', error.message);

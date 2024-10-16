@@ -91,7 +91,7 @@ async function generateTicketCode(serviceId) {
  function getQueueLength(serviceId) {
   return new Promise((resolve, reject) => {
 //statusId = 1 means that the ticket's status is "waiting" and should be added to the queue lenght
-    const query = `SELECT COUNT(*) FROM ticket WHERE serviceId = ? AND statusId = 1`;
+    const query = `SELECT COUNT(*) FROM ticket WHERE serviceId = ?`;
     const params = [serviceId];
 
     db.get(query, params, (err, row) => {
@@ -112,8 +112,9 @@ function setCounterTicket(code, counterId) {
 
     db.run(query, params, function(err) {
       if (err) {
-        return reject(err);
+        return reject(err)
       }
+      console.log(this.changes)
       resolve(this.changes)
     });
 })

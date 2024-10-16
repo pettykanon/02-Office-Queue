@@ -48,7 +48,7 @@ router.get('/:counterID/:previousTicketCode', async (req, res) => {
             }
         }
         if (longestQueue === 0) {
-            return res.status(500).json({ error: 'No queue found' });
+            return res.status(200).json({ code: "--"});
         }
 
         //find next ticket from next queue to serve

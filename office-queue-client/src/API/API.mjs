@@ -141,7 +141,7 @@ const getQueues = async (ticketId) => {
   };
 
   const addCounterCustomer = async (counterId, code) =>{
-    const response = await fetch(`${SERVER_URL}/api/ticket/${counterId}`,{
+    const response = await fetch(`${SERVER_URL}/api/tickets/${counterId}`,{
         method: "PUT",
         headers: {'Content-Type': 'application/json'}, 
         body: JSON.stringify({code: code})
