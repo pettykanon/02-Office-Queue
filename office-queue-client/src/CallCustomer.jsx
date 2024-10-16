@@ -22,8 +22,8 @@ function CallCustomer() {
         setWaitingList(extractedWaitingList);
         setServingList(extractedServingList);
 
-        console.log("TICKETS:")
-        console.log(queues)
+        console.log("TICKETS:");
+        console.log(queues);
       } catch (err) {
         console.log(err);
       }
@@ -42,7 +42,9 @@ function CallCustomer() {
       if (!serviceCount[serviceName]) {
         serviceCount[serviceName] = 0;
       }
-      serviceCount[serviceName]++;
+      if (ticket.statusId === 1) {
+        serviceCount[serviceName]++;
+      }
     });
 
     // Convert the serviceCount object to an array of { serviceName, length }
@@ -66,7 +68,7 @@ function CallCustomer() {
       .filter((ticket) => ticket.statusId === 2)
       .map((ticket) => ({
         ticketCode: ticket.code,
-        counter: ticket.counter,
+        counter: ticket.counterId,
       }));
   };
 
