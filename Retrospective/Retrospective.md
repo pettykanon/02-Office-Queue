@@ -1,4 +1,4 @@
-TEMPLATE FOR RETROSPECTIVE (Team ##)
+TEMPLATE FOR RETROSPECTIVE (Team 02)
 =====================================
 
 The retrospective should include _at least_ the following
@@ -86,15 +86,27 @@ sections:
 ## ASSESSMENT
 
 - What caused your errors in estimation (if any)?
+  - Lack of initial mutual knowledge among team members, including skills. 
+  - Incomplete understanding of user stories. Backend and frontend components were relatively well-estimated, however, we encountered challenges in integration and testing/bug fixing. 
+  - In some cases, we underestimated the effort required for post-ticket tasks, such as developing necessary DAO functions and planning the implementation structure.
 
 - What lessons did you learn (both positive and negative) in this sprint?
+  - We should assign significantly more weight to story points. In this project, we've observed that it's rare for one story to require twice or three times as much effort as another.
+  - Task assignments should be made to team members at the beginning of the sprint.
+  - We should spend less time on sprint planning and invest more time in meetings done during the sprint in order to improve in-sprint organization.
+  - The importance of UI and API design should not be underestimated, we also gave same estimations to different stories but at the end some of them were more complex than others.
 
 - Which improvement goals set in the previous retrospective were you able to achieve? 
+  - We were able to achieve 6 out of 7 
+  - We solved the problem about making the queue real-time in the UI.
   
 - Which ones you were not able to achieve? Why?
+  - Improve the organization in the github repository
+  - Notify customer story were not be able to achieved because requirement was not clear to team and we decided to eliminate it after having some work.
 
 - Improvement goals for the next sprint and how to achieve them (technical tasks, team coordination, etc.)
-
-  > Propose one or two
+  - Organize better the repository of the project. (decide standard names for the branches and merge them progressively into one unique branch)
+  - Testing in a consistent way (choosing intuitive frameworks and assigning more time to tests tasks)
 
 - One thing you are proud of as a Team!!
+  - The final product obtained by a perfect team spirit
